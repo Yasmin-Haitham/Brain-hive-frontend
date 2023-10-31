@@ -1,0 +1,85 @@
+:root {
+    --green: rgb(33, 250, 131);
+    --red: rgb(252, 86, 108);
+    --dusky-green: rgb(6, 170, 94);
+    --opac-white: rgba(255, 255, 255, .8);
+    --form-txt:  rgba(255, 255, 255, .5);
+    --darky: #1d2b3a;
+    --light-grey: rgb(105, 105, 105);
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-top: 10px; */
+    background-color: rgba(245, 222, 179, 0.514);
+  }
+  
+  .cover-image {
+    height: 20rem;
+    width: 75%;
+    margin-top: 50px;
+    background-image: url('./images/cover/cover.jpg');
+    background-size: cover;
+    border-radius: 10px;
+    
+  }
+  
+  .profile-picture-container {
+    position: relative;
+    
+  }
+  
+  .profile-picture {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-image: url('./images/viking.jpg');
+    background-size: cover;
+    position: absolute;
+    bottom: -50px;
+    left: calc(50% - 50px);
+  }
+  
+.name{
+    display: flex;
+    flex-direction: column;
+}
+
+  .user-name {
+    margin-top: 60px;
+  }
+  .RPGrole{
+    font-size: 20px;
+    margin: auto;
+  }
+  
+  .separator {
+    width: calc(100% - 40px);
+  }
+  
+  .buttons-container {
+    
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    margin-left: 180px;
+  }
+  
+  .buttons-container button {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color:#33333300;
+    border-radius: 15px;
+    width: fit-content;
+    display: flex;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .component-container {
+    margin-top: 20px;
+  }
+  

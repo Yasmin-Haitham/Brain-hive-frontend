@@ -1,0 +1,72 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+  float: left;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 8px;
+}
+
+.logo{
+  width: 60px;
+  height: 60px;
+}
+
+.leaderboard-container {
+  float: left;
+  width: 300px; 
+  /* margin-left: -55rem; Change this value to 0 */
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  height: 100%; 
+  margin-left: 15px;
+
+}
+
+.leaderboard-content {
+  background-color: #333333;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center text within the content */
+  display: flex;
+  flex-direction: column;
+align-items: center;
+}
+
+
+
+
+
+.showbtn {
+  background-color: #333333;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  width: fit-content;
+  margin-top: 10px; /* Add margin to separate from the table */
+  
+  text-align: center;
+}
+
+.arrow{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+/* Add this code to make the background dark */
+table,
+th,
+td {
+  background-color: #333333;
+}
+
+h2 {
+  color: white;
+}
