@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import NavbarComponent from "./NavbarComponent";
 import Courses from "./ProfileCourses";
 import Milestones from "./Milestones";
@@ -9,6 +10,7 @@ import { Button } from "react-bootstrap";
 
 function ProfilePage() {
   const [activeTab, setActiveTab] = useState("courses");
+  const [userData, setUserData] = useState(null);
 
   // Helper function to set the active tab
   const handleTabClick = (tab) => {
@@ -22,6 +24,18 @@ function ProfilePage() {
     badges: <Badges />,
     friends: <Friends />,
   };
+  // Fetch user data when the component mounts
+  useEffect(() => {
+    axios
+      .get("http://localhost:3030/user/profile") 
+      .then((response) => {
+        setUserData(response.user);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, []); // The empty dependency array ensures this effect runs once when the component mounts
+
   return (
     <div>
       <NavbarComponent />
@@ -30,9 +44,15 @@ function ProfilePage() {
         <div className='profile-picture-container'>
           <div className='profile-picture'></div>
         </div>
-        <div className='name'>
-          <h2 className='user-name'>User Name</h2>
-          <h3 className='RPGrole'>Mage</h3>
+        <div className="name">
+          {userData ? (
+            <>
+              <h2 className="user-name">{userData.Name}</h2>
+              <h3 className="RPGrole">{userData.LearningStyle}</h3>
+            </>
+          ) : (
+            <p>Loading user data...</p>
+          )}
         </div>
         <hr className='separator' />
         <div className='buttons-container'>
