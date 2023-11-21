@@ -9,7 +9,7 @@ import axios from "axios";
 
 function SignUpForm({ onSignUpClick }) {
   // backend link **************************************
-  
+
   const onSubmit = (values) => {
     // Create an object to hold the form data
     const formData = {
@@ -22,22 +22,22 @@ function SignUpForm({ onSignUpClick }) {
 
     // Send the form data to the server using Axios
     axios
-      .post('http://localhost:3030/user/create', formData)
+      .post("http://localhost:3030/user/create", formData)
       .then((response) => {
         // Handle a successful response here
-        console.log('User created:', response.data);
+        console.log("User created:", response.data);
         // Redirect or show a success message as needed
         window.location.href = "/quiz";
       })
       .catch((error) => {
         // Handle any errors here
-        console.error('Error creating user:', error);
+        console.error("Error creating user:", error);
         // You can also display an error message to the user
       });
   };
   //****************************************************
   const { Formik } = formik;
-  const phoneRegExp = /^01[0125][0-9]{7}$/;
+  const phoneRegExp = /^01[0125][0-9]{8}$/;
 
   const schema = yup.object().shape({
     firstName: yup.string().required(),
@@ -51,7 +51,7 @@ function SignUpForm({ onSignUpClick }) {
     confirmPassword: yup.string().required(),
     terms: yup.bool().required().oneOf([true], "terms must be accepted"),
   });
- 
+
   return (
     <div className='slideUp-animation'>
       <Row>
