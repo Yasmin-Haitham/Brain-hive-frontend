@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import NavbarComponent from "./NavbarComponent";
 import Courses from "./ProfileCourses";
 import Milestones from "./Milestones";
@@ -24,25 +24,26 @@ function ProfilePage() {
     badges: <Badges />,
     friends: <Friends />,
   };
+  // Fetch user data from the server
+  const getUser = () => {
+    axios
+      .get("http://localhost:3030/user/profile", { withCredentials: true })
+      .then((res) => {
+        setUserData(res.data);
+        console.log(res.data);
+      });
+  };
   // Fetch user data when the component mounts
   useEffect(() => {
-    axios
-      .get("http://localhost:3030/user/profile") 
-      .then((response) => {
-        setUserData(response.user);
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-      });
+    getUser();
   }, []); // The empty dependency array ensures this effect runs once when the component mounts
-
   return (
     <div>
       <NavbarComponent />
-      <div className='profile-container'>
-        <div className='cover-image'></div>
-        <div className='profile-picture-container'>
-          <div className='profile-picture'></div>
+      <div className="profile-container">
+        <div className="cover-image"></div>
+        <div className="profile-picture-container">
+          <div className="profile-picture"></div>
         </div>
         <div className="name">
           {userData ? (
@@ -54,8 +55,8 @@ function ProfilePage() {
             <p>Loading user data...</p>
           )}
         </div>
-        <hr className='separator' />
-        <div className='buttons-container'>
+        <hr className="separator" />
+        <div className="buttons-container">
           <Button onClick={() => handleTabClick("courses")}>Courses</Button>
           <Button onClick={() => handleTabClick("milestones")}>
             Milestones
@@ -63,8 +64,8 @@ function ProfilePage() {
           <Button onClick={() => handleTabClick("badges")}>Badges</Button>
           <Button onClick={() => handleTabClick("friends")}>Friends</Button>
         </div>
-        <hr className='separator' />
-        <div className='component-container'>{tabComponents[activeTab]}</div>
+        <hr className="separator" />
+        <div className="component-container">{tabComponents[activeTab]}</div>
       </div>
     </div>
   );
