@@ -14,16 +14,16 @@ import QuizPage from "./components/QuizPage";
 import ProfilePage from "./components/ProfilePage";
 
 function App() {
-
   return (
-    <div className='App'>
+    <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<SignIn />} />
-          <Route path='/signUp' element={<SignUp />} />
-          <Route path='/quiz' element={<QuizPage />} />
-          <Route path='/Home' element={<Home />} />
-          <Route path='/ProfilePage' element={<ProfilePage />} />
+          <Route path="/" element={<SignIn />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/quiz" element={<QuizPage />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/ProfilePage" element={<ProfilePage />} />
+          <Route path="/Courses" element={<Courses />} />
         </Routes>
       </BrowserRouter>
     </div>
