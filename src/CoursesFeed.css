@@ -1,0 +1,72 @@
+.CoursesFeed {
+  display: flex;
+  flex-direction: column;
+  /* width: 600px; */
+  margin: auto;
+  /* margin-left: 160px; */
+  border-radius: 8px;
+  background-color: #333333;
+  margin-bottom: 10px;
+}
+
+.CoursesFeed-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.CoursesFeed-profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.CoursesFeed-user-info {
+  margin-left: 10px;
+}
+
+.CoursesFeed-user-name {
+  margin: 0;
+}
+
+.CoursesFeed-post-date {
+  margin: 0;
+}
+
+.CoursesFeed-content {
+  padding: 10px;
+}
+
+.CoursesFeed-post-description {
+  margin-top: 0;
+}
+
+.CoursesFeed-post-image {
+  width: 100%;
+}
+
+.CoursesFeed-buttons {
+  position: relative;
+  display: flex;
+  /* justify-content: space-evenly; */
+}
+.CoursesFeed-start-course-button {
+  margin: 0px;
+  margin-top: 10px;
+  background-color: #333333;
+  width: 50%;
+  align-items: center;
+  display: block;
+  justify-content: none;
+  border: none;
+}
+
+.CoursesFeed-comment-button {
+  margin: 0px;
+  margin-top: 10px;
+  background-color: #333333;
+  border: none;
+  width: 50%;
+  display: block;
+  justify-content: none;
+}

@@ -12,7 +12,7 @@ import "./index.css";
 import Home from "./components/Home";
 import QuizPage from "./components/QuizPage";
 import ProfilePage from "./components/ProfilePage";
-
+import Courses from "./components/Courses";
 function App() {
   return (
     <div className="App">
