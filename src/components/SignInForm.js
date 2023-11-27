@@ -9,8 +9,6 @@ import * as formik from "formik";
 import * as yup from "yup";
 
 function SignUpForm() {
-  
-
   const { Formik } = formik;
   const schema = yup.object().shape({
     email: yup.string().email().required(),
@@ -26,17 +24,23 @@ function SignUpForm() {
 
     // Make a POST request to your server for login
     axios
-      .post("http://localhost:3030/user/login",userData, {withCredentials: true})
+      .post("http://localhost:3030/user/login", userData, {
+        withCredentials: true,
+      })
       .then((response) => {
         // Handle the response from the server (e.g., redirect or display a message)
         console.log("Login successful", response.data);
 
-        localStorage.setItem("userId", response.data._id);
+        localStorage.setItem("userId", response.data.uid);
 
         // Check if the login was successful
         if (response.data.success) {
           // Redirect to the home page or perform any other action
-          window.location.href = "/home";
+          if (response.data.LearningStyle == null) {
+            window.location.href = "/quiz";
+          } else {
+            window.location.href = "/Home";
+          }
         } else {
           // Display an alert if the login was not successful
           alert("Email or password is wrong.");

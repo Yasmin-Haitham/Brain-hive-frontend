@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../quiz.css";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Home from "./Home";
 // ************** DONT FORGET TO ADD THE PROGRESS BARRRRRRRR***************************
 
@@ -9,8 +10,44 @@ export default function Quiz() {
   const navigate = useNavigate();
 
   const navigateHome = () => {
+    // Call the function with the desired scores
+    const userID = localStorage.getItem("userId");
+    function findMaxScore(score) {
+      const maxScore = Math.max(...Object.values(score));
+      const maxAttribute = Object.keys(score).find(
+        (attribute) => score[attribute] === maxScore
+      );
+      return maxAttribute;
+    }
+    updateScores(userID, {
+      LearningStyle: findMaxScore(scores),
+      VisualPercent: calculatePercentage(scores.Visual, totalQuestions),
+      AuditoryPercent: calculatePercentage(scores.Auditory, totalQuestions),
+      ReadingPercent: calculatePercentage(scores.ReadWrite, totalQuestions),
+      KinestheticPercent: calculatePercentage(
+        scores.Kinesthetic,
+        totalQuestions
+      ),
+    });
     navigate("/Home");
   };
+
+  //Send PUT request to update scores using axios
+  const updateScores = async (userID, scores) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3030/user/update/${userID}`,
+        scores,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const questions = [
     {
       // Q1
@@ -401,9 +438,9 @@ export default function Quiz() {
   const totalQuestions = questions.length;
 
   return (
-    <div className='app'>
+    <div className="app">
       {showScore ? (
-        <div className='score-section'>
+        <div className="score-section">
           <div>
             Visual Score: {calculatePercentage(scores.Visual, totalQuestions)}%
           </div>
@@ -433,11 +470,12 @@ export default function Quiz() {
           <div>
             <Button
               onClick={navigateHome}
-              className='answerbtnn'
+              className="answerbtnn"
               style={{
                 display: "flex",
                 justifyContent: "center",
-              }}>
+              }}
+            >
               {" "}
               Finish Signing Up{" "}
             </Button>
@@ -445,25 +483,26 @@ export default function Quiz() {
         </div>
       ) : (
         <>
-          <div className='question-section'>
-            <div className='question-count'>
+          <div className="question-section">
+            <div className="question-count">
               <span>Question {currentQuestion + 1}</span>
               {/* /{questions.length} */}
             </div>
-            <div className='question-text'>
+            <div className="question-text">
               {questions[currentQuestion].questionText}
             </div>
           </div>
-          <div className='answer-section'>
+          <div className="answer-section">
             {questions[currentQuestion].answerOptions.map((answerOption) => (
               <Button
-                className='answerbtnn'
+                className="answerbtnn"
                 onClick={() =>
                   handleAnswerOptionClick(
                     answerOption.isCorrect,
                     answerOption.scoreType
                   )
-                }>
+                }
+              >
                 {answerOption.answerText}
               </Button>
             ))}

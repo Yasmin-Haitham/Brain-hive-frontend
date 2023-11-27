@@ -18,6 +18,7 @@ function SignUpForm({ onSignUpClick }) {
       email: values.email,
       password: values.password,
       phoneNumber: values.phoneNumber,
+      LearningStyle: null
     };
 
     // Send the form data to the server using Axios
@@ -29,7 +30,7 @@ function SignUpForm({ onSignUpClick }) {
         // Handle a successful response here
         console.log("User created:", response.data);
         // Redirect or show a success message as needed
-        window.location.href = "/quiz";
+        window.location.href = "/";
       })
       .catch((error) => {
         // Handle any errors here
