@@ -22,7 +22,7 @@ export default function Quiz() {
     const learningStyle = findMaxScore(scores)
     const randomNum = Math.floor(Math.random() * 3) + 1;
     updateScores(userID, {
-      ProfilePicturePath: '../images/selected/'+ learningStyle+'Learner'+randomNum,
+      ProfilePicturePath: 'selected/'+ learningStyle+'Learner'+randomNum,
       LearningStyle: learningStyle,
       VisualPercent: calculatePercentage(scores.Visual, totalQuestions),
       AuditoryPercent: calculatePercentage(scores.Auditory, totalQuestions),
