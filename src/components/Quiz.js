@@ -19,8 +19,11 @@ export default function Quiz() {
       );
       return maxAttribute;
     }
+    const learningStyle = findMaxScore(scores)
+    const randomNum = Math.floor(Math.random() * 3) + 1;
     updateScores(userID, {
-      LearningStyle: findMaxScore(scores),
+      ProfilePicturePath: '../images/selected/'+ learningStyle+'Learner'+randomNum,
+      LearningStyle: learningStyle,
       VisualPercent: calculatePercentage(scores.Visual, totalQuestions),
       AuditoryPercent: calculatePercentage(scores.Auditory, totalQuestions),
       ReadingPercent: calculatePercentage(scores.ReadWrite, totalQuestions),

@@ -35,7 +35,6 @@
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    background-image: url('./images/viking.jpg');
     background-size: cover;
     position: absolute;
     bottom: -50px;

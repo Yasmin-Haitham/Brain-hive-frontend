@@ -11,6 +11,7 @@ import { Button } from "react-bootstrap";
 function ProfilePage() {
   const [activeTab, setActiveTab] = useState("courses");
   const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Helper function to set the active tab
   const handleTabClick = (tab) => {
@@ -24,26 +25,44 @@ function ProfilePage() {
     badges: <Badges />,
     friends: <Friends />,
   };
+
   // Fetch user data from the server
   const getUser = () => {
     axios
       .get("http://localhost:3030/user/profile", { withCredentials: true })
       .then((res) => {
         setUserData(res.data);
+        setLoading(false);
         console.log(res.data);
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.error("Error fetching user data:", error);
       });
   };
+
   // Fetch user data when the component mounts
   useEffect(() => {
     getUser();
   }, []); // The empty dependency array ensures this effect runs once when the component mounts
+
   return (
     <div>
       <NavbarComponent />
       <div className="profile-container">
         <div className="cover-image"></div>
         <div className="profile-picture-container">
-          <div className="profile-picture"></div>
+          {loading ? (
+            <p>Loading user data...</p>
+          ) : (
+            userData && (
+              <img
+                src={process.env.PUBLIC_URL + `/${userData.ProfilePicturePath}.png`}
+                className="profile-picture"
+                alt="Profile"
+              />
+            )
+          )}
         </div>
         <div className="name">
           {userData ? (
@@ -70,4 +89,5 @@ function ProfilePage() {
     </div>
   );
 }
+
 export default ProfilePage;
