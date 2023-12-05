@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import * as Api from "./API";
 import "../Feed.css";
 import viking from "../images/viking.jpg";
 import post from "../images/post.jpg";
 
 function Feed() {
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  // Fetch user data when the component mounts
+  useEffect(() => {
+    Api.getUser(setUserData, setLoading);
+  }, []);
   return (
     <div className='Feed'>
       <div className='Feed-header'>
-        <img className='Feed-profile-pic' src={viking} alt='Profile Pic' />
+        {loading ? (
+            <p>Loading user data...</p>
+          ) : (
+            userData && (
+              <img
+                src={process.env.PUBLIC_URL + `/${userData.ProfilePicturePath}.png`}
+                className='Feed-profile-pic'
+                alt="Profile"
+              />
+            )
+          )}
 
         <div className='Feed-user-info'>
-          <h3 className='Feed-user-name'>User Name</h3>
+          <h3 className='Feed-user-name'>{userData.Name}</h3>
           <p className='Feed-post-date'>October 10, 2023</p>
         </div>
       </div>
