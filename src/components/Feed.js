@@ -7,34 +7,45 @@ import post from "../images/post.jpg";
 function Feed() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+
   // Fetch user data when the component mounts
   useEffect(() => {
     Api.getUser(setUserData, setLoading);
   }, []);
+
   return (
     <div className='Feed'>
       <div className='Feed-header'>
         {loading ? (
-            <p>Loading user data...</p>
-          ) : (
-            userData && (
+          <p>Loading user data...</p>
+        ) : userData ? (
+          <>
+            {userData.ProfilePicturePath ? (
               <img
                 src={process.env.PUBLIC_URL + `/${userData.ProfilePicturePath}.png`}
                 className='Feed-profile-pic'
                 alt="Profile"
               />
-            )
-          )}
-
-        <div className='Feed-user-info'>
-          <h3 className='Feed-user-name'>{userData.Name}</h3>
-          <p className='Feed-post-date'>October 10, 2023</p>
-        </div>
+            ) : (
+              <p>No profile picture available</p>
+            )}
+            <div className='Feed-user-info'>
+              {userData.Name ? (
+                <h3 className='Feed-user-name'>{userData.Name}</h3>
+              ) : (
+                <p>No user name available</p>
+              )}
+              <p className='Feed-post-date'>October 10, 2023</p>
+            </div>
+          </>
+        ) : (
+          <p>No user data available</p>
+        )}
       </div>
       <div className='Feed-content'>
         <p className='Feed-post-description'>
-          here will be the description of the offered course posted in the feed
-          including the type of learning used in this course
+          Here will be the description of the offered course posted in the feed,
+          including the type of learning used in this course.
         </p>
         <img className='Feed-post-image' src={post} alt='Post Image' />
         <div className='Feed-buttons'>
@@ -43,8 +54,8 @@ function Feed() {
           <button className='Feed-start-course-button'>Start Course</button>
         </div>
       </div>
-      
     </div>
   );
 }
+
 export default Feed;
