@@ -29,6 +29,8 @@ body {
     background-color:#b8860b;
 }
 
+
+
 .form-header {
     grid-column: 1 / -1;
     letter-spacing: .06em;
@@ -57,7 +59,22 @@ body {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;  
 }
 
-
+.dropdown{
+    display:flex;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    appearance: none;
+    background-color: #ffffff0f;
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-bottom: var(--dusky-green);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; 
+}
 
 .form-control::placeholder{
     color:rgb(255, 255, 255);
@@ -247,7 +264,6 @@ justify-items:flex-start;
     margin-left: 35px; 
     background-color: var(--dusky-green);
 }
-
 
 
 
