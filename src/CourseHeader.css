@@ -1,0 +1,18 @@
+.course-header {
+    text-align: left;
+    padding: 20px;
+  }
+  
+  .course-name {
+    /* margin-bottom: 0.5em;  */
+    font-size: 1.5em;
+    color: black;
+  }
+  
+  .instructor-name {
+    /* margin-top: 0;  */
+    font-size: 1.2em; 
+    color: #000000; 
+    margin-left: 60px;
+  }
+  
