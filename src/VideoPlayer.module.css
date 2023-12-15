@@ -1,0 +1,14 @@
+/* VideoPlayer.module.css */
+.videoPlayerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* This will take the full height of the viewport */
+  }
+  
+  .react-player {
+    width: 50vw; /* Adjust width as needed */
+    height: 50vw; /* Adjust height to maintain the aspect ratio */
+    max-height: 90vh; /* To ensure it does not overflow the viewport height */
+  }
+  
