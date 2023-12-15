@@ -7,7 +7,7 @@ import Badges from "./Badges";
 import Friends from "./Friends";
 import "../profile.css";
 import { Button } from "react-bootstrap";
-import api from "./API";
+import * as api from "./API";
 
 function ProfilePage() {
   const [activeTab, setActiveTab] = useState("courses");
@@ -27,24 +27,9 @@ function ProfilePage() {
     friends: <Friends />,
   };
 
-  // Fetch user data from the server 
-  const getUser = () => {
-    axios
-      .get("http://localhost:3030/user/profile", { withCredentials: true })
-      .then((res) => {
-        setUserData(res.data);
-        setLoading(false);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.error("Error fetching user data:", error);
-      });
-  };
-
+  
   // Fetch user data when the component mounts
   useEffect(() => {
-    // getUser();
     api.getUser(setUserData, setLoading);
   }, []); // The empty dependency array ensures this effect runs once when the component mounts
 

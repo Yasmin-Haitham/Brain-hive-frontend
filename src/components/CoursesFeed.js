@@ -1,27 +1,42 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../CoursesFeed.css";
-import api from "./API";
+import * as api from "./API";
 
 function CoursesFeed(props) {
   const { courseName, description, comment, image, courseId } = props;
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Axios function to enroll in the course
-  const enrollCourse = async () => {
-    try {
-      api.getUser(setUserData, setLoading)
-      const response = await axios.post(
-        `http://localhost:3030/courses/enroll`,
-        { courseName: courseName, courseId: courseId },
-        { withCredentials: true }
-      );
-      console.log(response.data); // Log the response if needed
+  useEffect(() => {
+    api.getUser(setUserData, setLoading);
+  }, []);
 
-      // Handle additional logic after enrolling in the course
+  const isEnrolled= () =>{
+    userData &&
+    userData.enrolledCourses.some((course) => course.courseName === courseName);}
+
+  const handleButtonClick = async () => {
+    try {
+      // Check if the course is already enrolled
+      if (isEnrolled) {
+        // redirect to course content
+        window.location.replace("/CourseContent");
+        return true;
+      } else {
+        // Enroll in the course
+        const response = await axios.post(
+          "http://localhost:3030/courses/enroll",
+          { courseName: courseName, courseId: courseId },
+          { withCredentials: true }
+        );
+        console.log(response.data); // Log the response if needed
+
+        // Update the user data after enrolling
+        api.getUser(setUserData, setLoading);
+      }
     } catch (error) {
-      console.error("Error enrolling in the course:", error);
+      console.error("Error handling the button click:", error);
     }
   };
 
@@ -30,6 +45,9 @@ function CoursesFeed(props) {
       <div className="CoursesFeed-header">
         <div className="CoursesFeed-user-info">
           <h3 className="CoursesFeed-user-name">{courseName}</h3>
+          {isEnrolled && (
+            <div style={{ color: "green", marginLeft: "10px" }}>Enrolled</div>
+          )}
         </div>
       </div>
       <div className="CoursesFeed-content">
@@ -40,13 +58,14 @@ function CoursesFeed(props) {
           <div style={{ marginTop: "5px", fontSize: "30px" }}>{"|"}</div>
           <button
             className="CoursesFeed-start-course-button"
-            onClick={enrollCourse}
+            onClick={handleButtonClick}
           >
-            Start Course
+            {isEnrolled ? "View Course" : "Start Course"}
           </button>
         </div>
       </div>
     </div>
   );
 }
+
 export default CoursesFeed;
