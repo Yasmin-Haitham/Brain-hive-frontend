@@ -31,7 +31,7 @@ function SignUpForm() {
         // Handle the response from the server (e.g., redirect or display a message)
         console.log("Login successful", response.data);
 
-        localStorage.setItem("userId", response.data.uid);
+        sessionStorage.setItem("userId", response.data.uid);
 
         // Check if the login was successful
         if (response.data.success) {

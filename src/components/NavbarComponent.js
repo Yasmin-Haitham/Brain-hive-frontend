@@ -8,6 +8,7 @@ import "../navigation.css";
 import logo from "../images/logo.png";
 import "../components/ProfilePage";
 import "../components/Home";
+import "../components/Courses";
 import axios from "axios";
 
 function NavbarComponent() {
@@ -50,7 +51,7 @@ function NavbarComponent() {
             navbarScroll>
             <Nav.Link href='Home'>Home</Nav.Link>
             <Nav.Link href='ProfilePage'>Profile</Nav.Link>
-            <Nav.Link href='#action2'>Courses</Nav.Link>
+            <Nav.Link href='Courses'>Courses</Nav.Link>
             <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
 
             <NavDropdown title='Link' id='navbarScrollingDropdown'>
