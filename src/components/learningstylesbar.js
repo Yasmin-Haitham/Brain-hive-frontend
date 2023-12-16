@@ -1,15 +1,25 @@
 import React from "react";
 import "../LearningStylesBar.css";
 
-const LearningStylesBar = () => {
+const LearningStylesBar = ({ onSelectStyle }) => {
   return (
     <div className="LearningStylesBar">
       <ul className="navbar-list">
-        <li className="nav-item">Auditory</li>
-        <li className="nav-item">Visual</li>
-        <li className="nav-item">Read/Write</li>
-        <li className="nav-item">Kinesthetic</li>
-        <li className="nav-item">Default</li>
+        <li className="nav-item" onClick={() => onSelectStyle("Auditory")}>
+          Auditory
+        </li>
+        <li className="nav-item" onClick={() => onSelectStyle("Visual")}>
+          Visual
+        </li>
+        <li className="nav-item" onClick={() => onSelectStyle("Read/Write")}>
+          Read/Write
+        </li>
+        <li className="nav-item" onClick={() => onSelectStyle("Kinesthetic")}>
+          Kinesthetic
+        </li>
+        <li className="nav-item" onClick={() => onSelectStyle("Default")}>
+          Default
+        </li>
       </ul>
     </div>
   );
