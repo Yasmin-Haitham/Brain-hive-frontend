@@ -3,6 +3,7 @@ import VideoPlayer from "./VideoPlayer.js";
 import NavbarComponent from "./NavbarComponent";
 import styles from "../VideoPlayer.module.css"; // Go up one directory level
 import CourseHeader from "./CourseHeader.js";
+import LearningStylesBar from "./learningstylesbar.js";
 
 const CourseContent = () => {
   const videoUrl =
@@ -11,6 +12,7 @@ const CourseContent = () => {
   return (
     <div>
       <NavbarComponent />
+      <LearningStylesBar />
       <CourseHeader />
       <div className={styles.videoPlayerContainer}>
         <VideoPlayer url={videoUrl} className={styles.reactPlayer} />
