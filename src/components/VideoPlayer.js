@@ -9,7 +9,7 @@ const VideoPlayer = ({ url, className }) => {
       playing
       controls
       // The below styles are necessary to maintain aspect ratio for the player
-      style={{ position: "absolute", marginTop:"-150px"}}
+      style={{ position: "absolute", marginTop:"550px"}}
       width='50%'
       height='70%'
     />
