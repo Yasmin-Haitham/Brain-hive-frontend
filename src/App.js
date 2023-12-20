@@ -14,18 +14,20 @@ import QuizPage from "./components/QuizPage";
 import ProfilePage from "./components/ProfilePage";
 import Courses from "./components/Courses";
 import CourseContent from "./components/CourseContent";
+import Todolist from "./components/todolist";
 function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<SignIn />} />
-          <Route path='/signUp' element={<SignUp />} />
-          <Route path='/quiz' element={<QuizPage />} />
-          <Route path='/Home' element={<Home />} />
-          <Route path='/ProfilePage' element={<ProfilePage />} />
-          <Route path='/Courses' element={<Courses />} />
-          <Route path='/CourseContent' element={<CourseContent />} />
+          <Route path="/" element={<SignIn />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/quiz" element={<QuizPage />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/ProfilePage" element={<ProfilePage />} />
+          <Route path="/Courses" element={<Courses />} />
+          <Route path="/CourseContent" element={<CourseContent />} />
+          <Route path="/todolist" element={<Todolist />} />
         </Routes>
       </BrowserRouter>
     </div>
