@@ -12,14 +12,20 @@ function CoursesFeed(props) {
     api.getUser(setUserData, setLoading);
   }, []);
 
-  const isEnrolled= () =>{
-    userData &&
-    userData.enrolledCourses.some((course) => course.courseName === courseName);}
+  function isEnrolled () {
+    return (
+      userData &&
+      userData.enrolledCourses &&
+      Array.isArray(userData.enrolledCourses) &&
+      userData.enrolledCourses.some((course) => course.courseName === courseName)
+    );
+  };
+  
 
   const handleButtonClick = async () => {
     try {
       // Check if the course is already enrolled
-      if (isEnrolled) {
+      if (isEnrolled()) {
         // redirect to course content
         window.location.replace("/CourseContent");
         return true;

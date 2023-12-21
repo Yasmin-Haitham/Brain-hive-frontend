@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import "../index.css";
 import Row from "react-bootstrap/Row";
 import * as formik from "formik";
-import { Field, ErrorMessage } from "formik";
+import { Field, ErrorMessage, Formik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 
@@ -26,7 +26,7 @@ function SignUpForm({ onSignUpClick }) {
       password: values.password,
       phoneNumber: values.phoneNumber,
       LearningStyle: null,
-      specializations: "",
+      specializations: values.specialization,
     };
 
     // Send the form data to the server using Axios
@@ -80,6 +80,7 @@ function SignUpForm({ onSignUpClick }) {
             phoneNumber: "",
             password: "",
             confirmPassword: "",
+            specialization: "",
             terms: false,
           }}>
           {({ handleSubmit, handleChange, values, touched, errors }) => (

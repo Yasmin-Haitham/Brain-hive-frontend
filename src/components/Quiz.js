@@ -10,7 +10,7 @@ export default function Quiz() {
 
   const navigateHome = () => {
     // Call the function with the desired scores
-    const userID = localStorage.getItem("userId");
+    const userID = sessionStorage.getItem("userId");
     function findMaxScore(score) {
       const maxScore = Math.max(...Object.values(score));
       const maxAttribute = Object.keys(score).find(
@@ -18,6 +18,22 @@ export default function Quiz() {
       );
       return maxAttribute;
     }
+    //Send PUT request to update scores using axios
+  const updateScores = async (userID, scores) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3030/user/update/${userID}`,
+        scores,
+        {
+          withCredentials: true,
+        }
+      );
+      navigate("/Home");
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
     const learningStyle = findMaxScore(scores)
     const randomNum = Math.floor(Math.random() * 3) + 1;
     updateScores(userID, {
@@ -31,24 +47,10 @@ export default function Quiz() {
         totalQuestions
       ),
     });
-    navigate("/Home");
+    
   };
 
-  //Send PUT request to update scores using axios
-  const updateScores = async (userID, scores) => {
-    try {
-      const response = await axios.put(
-        `http://localhost:3030/user/update/${userID}`,
-        scores,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
 
   const questions = [
     {
