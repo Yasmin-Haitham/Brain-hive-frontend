@@ -12,14 +12,19 @@ function CoursesFeed(props) {
     api.getUser(setUserData, setLoading);
   }, []);
 
-  function isEnrolled () {
-    return (
-      userData &&
-      userData.enrolledCourses &&
-      Array.isArray(userData.enrolledCourses) &&
-      userData.enrolledCourses.some((course) => course.courseName === courseName)
-    );
-  };
+  function isEnrolled() {
+    if (userData!= null) {
+      console.log(userData)
+      if (userData.enrolledCourses) {
+        console.log(userData.enrolledCourses);
+        return userData.enrolledCourses.some(function(course) {
+          return course.courseName === courseName;
+        });
+      } return false;
+    }
+    return false;
+  }
+    
   
 
   const handleButtonClick = async () => {
@@ -51,7 +56,7 @@ function CoursesFeed(props) {
       <div className="CoursesFeed-header">
         <div className="CoursesFeed-user-info">
           <h3 className="CoursesFeed-user-name">{courseName}</h3>
-          {isEnrolled && (
+          {isEnrolled() && (
             <div style={{ color: "green", marginLeft: "10px" }}>Enrolled</div>
           )}
         </div>
@@ -66,7 +71,7 @@ function CoursesFeed(props) {
             className="CoursesFeed-start-course-button"
             onClick={handleButtonClick}
           >
-            {isEnrolled ? "View Course" : "Start Course"}
+            {isEnrolled() ? "View Course" : "Start Course"}
           </button>
         </div>
       </div>
