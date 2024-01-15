@@ -27,6 +27,24 @@
     
    
   }
+  .no-courses-message{
+    margin-bottom: 25px;
+    font-weight: bolder;
+
+  }
+  .browse{
+    
+    display: block;
+    margin-left: auto;
+    margin-top: 10px;
+    margin-right: auto;
+    background-color: #14281d00;
+    border-color: #B17C0D;
+  }
+  .browse:hover{
+    background-color: #B17C0D;
+    border-color: #B17C0D;
+  }
   .name{
     color: #B17C0D;
     font-weight: bolder;
