@@ -81,7 +81,9 @@
     font-weight: bolder;
    
   }
-  
+  .buttons-container button:hover{
+    background-color: #B17C0D;
+  }
   
   .component-container {
     margin-top: 20px;
