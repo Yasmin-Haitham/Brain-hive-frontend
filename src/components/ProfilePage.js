@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import NavbarComponent from "./NavbarComponent";
 import Courses from "./ProfileCourses";
 import Milestones from "./Milestones";
@@ -27,7 +26,6 @@ function ProfilePage() {
     friends: <Friends />,
   };
 
-  
   // Fetch user data when the component mounts
   useEffect(() => {
     api.getUser(setUserData, setLoading);
@@ -44,7 +42,9 @@ function ProfilePage() {
           ) : (
             userData && (
               <img
-                src={process.env.PUBLIC_URL + `/${userData.ProfilePicturePath}.png`}
+                src={
+                  process.env.PUBLIC_URL + `/${userData.ProfilePicturePath}.png`
+                }
                 className="profile-picture"
                 alt="Profile"
               />
@@ -71,7 +71,9 @@ function ProfilePage() {
           <Button onClick={() => handleTabClick("friends")}>Friends</Button>
         </div>
         <hr className="separator" />
-        <div className="component-container">{tabComponents[activeTab]}</div>
+        <div className="component-container">
+          {React.cloneElement(tabComponents[activeTab], { userData })}
+        </div>
       </div>
     </div>
   );

@@ -1,24 +1,17 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import NavbarComponent from "./NavbarComponent";
 import CoursesFeed from "./CoursesFeed";
+import * as api from "./API";
 
 import { Container, Col, Row } from "reactstrap";
-
 
 function Courses() {
   const [cards, setCards] = useState([]);
   useEffect(() => {
     // Fetch courses from Contentful
-    axios
-      .get("http://localhost:3030/courses")
-      .then((response) => setCards(response.data))
-      .catch((error) =>
-        console.error("Error fetching data from Contentful:", error)
-      );
+    api.getCourses(setCards)
   }, []);
   return (
-   
     <div>
       <NavbarComponent />
       <Container fluid className="my-3">
@@ -26,7 +19,7 @@ function Courses() {
           {cards.map((card, index) => (
             <Col key={index} xs={12} md={6} lg={4}>
               <CoursesFeed
-                courseId = {card.id}
+                courseId={card.id}
                 description={card.description.content[0].content[0].value}
                 comment="comment"
                 courseName={card.courseName}
