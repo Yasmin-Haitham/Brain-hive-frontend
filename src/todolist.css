@@ -11,20 +11,21 @@ ul li {
   cursor: pointer;
   position: relative;
   padding: 12px 8px 12px 40px;
-  background: rgb(105, 105, 105);
+  background: rgba(105, 105, 105, 0);
   font-size: 18px;
   transition: 0.2s;
-
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
 
-ul li:nth-child(odd) {
-  background: rgb(105, 105, 105);
-}
+.todo-Container{
+  /* width: 360px; */
+  background-image: linear-gradient(#223e2f,darkgreen);
 
+  
+}
 ul li:hover {
   background: rgb(110, 110, 110);
 }
@@ -87,18 +88,16 @@ input {
 }
 
 .addBtn {
-  padding: 10px;
-  width: 25%;
-  background: #d9d9d9;
-  color: darkgreen;
-  float: left;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-  border-radius: 0;
+  display: block;
+  margin-left: auto;
+  margin-top: 10px;
+  margin-right: auto;
+  background-color: #14281d;
+  border-color: #B17C0D;
+  width: 15%;
 }
 
 .addBtn:hover {
-  background-color: #bbb;
+  background-color: #B17C0D;
+  border-color: #B17C0D;
 }

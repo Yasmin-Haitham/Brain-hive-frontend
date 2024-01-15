@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import NavbarComponent from "./NavbarComponent";
+
 import "../todolist.css";
+import { Button } from "react-bootstrap";
 
 function Todolist() {
   useEffect(() => {
@@ -46,24 +47,29 @@ function Todolist() {
 
   return (
     <div>
-      <NavbarComponent />
+     
       <>
-        <div id="myDIV" className="header">
+        <div id='myDIV' className='header'>
           <h2>To-Do-List</h2>
-          <input type="text" className="myInput" placeholder="Title..." />
-          <span onClick={newElement} className="addBtn">
+          <input
+            type='text'
+            className='myInput'
+            placeholder='Add your Own...'
+          />
+          <Button onClick={newElement} className='addBtn'>
             Add
-          </span>
+          </Button>
         </div>
-
-        <ul id="myUL">
-          <li>Hit the gym</li>
-          <li className="checked">Pay bills</li>
-          <li>Meet Ali</li>
-          <li>Buy eggs</li>
-          <li>Read a book</li>
-          <li>Organize office</li>
-        </ul>
+        <div className='todo-Container'>
+          <ul id='myUL'>
+            <li>Hit the gym</li>
+            <li className='checked'>Pay bills</li>
+            <li>Meet Ali</li>
+            <li>Buy eggs</li>
+            <li>Read a book</li>
+            <li>Organize office</li>
+          </ul>
+        </div>
       </>
     </div>
   );

@@ -6,6 +6,7 @@ import CourseHeader from "./CourseHeader.js";
 import LearningStylesBar from "./learningstylesbar.js";
 import CoursePDFViewer from "./CoursePDFViewer.js";
 import AuditoryCoursePlayer from "./AuditoryCoursePlayer.js";
+import CourseTodo from "./CourseTodo.js";
 
 const CourseContent = () => {
   const videoUrl =
@@ -44,7 +45,12 @@ const CourseContent = () => {
         <div>
           <AuditoryCoursePlayer audioSrc={audiofile} />
           <AuditoryCoursePlayer audioSrc={audiofile} />
-          
+        </div>
+      )}
+
+      {selectedStyle === "Kinesthetic" && (
+        <div>
+          <CourseTodo />
         </div>
       )}
     </div>

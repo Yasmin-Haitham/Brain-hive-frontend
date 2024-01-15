@@ -17,9 +17,7 @@ const LearningStylesBar = ({ onSelectStyle }) => {
         <li className="nav-item" onClick={() => onSelectStyle("Kinesthetic")}>
           Kinesthetic
         </li>
-        <li className="nav-item" onClick={() => onSelectStyle("Default")}>
-          Default
-        </li>
+        
       </ul>
     </div>
   );
