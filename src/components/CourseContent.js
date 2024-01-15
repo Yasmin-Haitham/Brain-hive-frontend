@@ -29,8 +29,6 @@ const CourseContent = () => {
 
       <LearningStylesBar onSelectStyle={setSelectedStyle} />
 
-      <CourseHeader />
-
       {selectedStyle === "Visual" && (
         <div className={styles.videoPlayerContainer}>
           <VideoPlayer url={videoUrl} className={styles.reactPlayer} />
@@ -53,6 +51,7 @@ const CourseContent = () => {
           <CourseTodo />
         </div>
       )}
+     
     </div>
   );
 };

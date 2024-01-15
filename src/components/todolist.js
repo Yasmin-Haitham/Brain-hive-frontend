@@ -46,7 +46,7 @@ function Todolist() {
   };
 
   return (
-    <div>
+    <div style={{width:"50%", marginTop:"50px"}}>
      
       <>
         <div id='myDIV' className='header'>

@@ -1,24 +1,35 @@
+/* LearningStylesBar.css */
 .LearningStylesBar {
+  position: fixed; /* Position the navigation fixed on the screen */
+  right: 0; /* Align to the far right */
+  top: 50%; /* Center it vertically */
+  transform: translateY(-50%); /* Offset the div by half its height to truly center it */
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  background-color: #333; /* Background color for the navbar */
-  height: 50px; /* Adjust the height as needed */
-  color: white; /* Text color */
+  margin-right: 50px;
+  flex-direction: column; /* Align items vertically */
+  background-color: #333; /* Dark background color for the bar */
+  padding: 20px; /* Padding around the navigation items */
+  border-radius: 10px; /* Rounded corners on the left side */
+  box-shadow: -5px 0 10px rgba(0,0,0,0.3); /* Shadow on the left side for a 3D effect */
 }
 
-/* Style for the navbar list */
-.navbar-list {
-  list-style: none;
-  display: flex;
-  justify-content: center; /* Center the list items horizontally */
-  align-items: center; /* Center the list items vertically */
-  padding: 0;
-  margin: 0;
-}
-
-/* Style for each navbar item */
 .nav-item {
-  margin: 0 10px; /* Add spacing between items */
-  cursor: pointer; /* Add a pointer cursor for interaction */
+  color: #ffd700; /* Gold color text for items */
+  padding: 10px; /* Padding inside each nav item */
+  margin-bottom: 10px; /* Space between nav items */
+  cursor: pointer; /* The cursor will change to a pointer on hover */
+  text-align: center; /* Center text inside nav items */
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+}
+
+.nav-item:last-child {
+  margin-bottom: 0; /* No margin at the bottom of the last item */
+}
+
+.nav-item:hover {
+  background-color: #ffd700; /* Gold background on hover */
+  color: #333; /* Dark text color on hover */
+  border-radius: 5px; /* Rounded corners for the hover effect */
+  text-decoration: underline;
 }
