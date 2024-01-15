@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../CoursesProfile.css";
-import logo from "../images/logo.png";
+
 import * as api from "./API";
 
 function ProfileCourses({ userData }) {

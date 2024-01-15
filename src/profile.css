@@ -13,12 +13,13 @@
     flex-direction: column;
     align-items: center;
     /* margin-top: 10px; */
-    background-color: rgba(245, 222, 179, 0.514);
+    /* margin-bottom: -16px; */
+    background-color: rgba(0, 0, 0, 0.873);
   }
   
   .cover-image {
     height: 20rem;
-    width: 75%;
+    width: 90%;
     margin-top: 50px;
     background-image: url('./images/cover/cover.jpg');
     background-size: cover;
@@ -48,15 +49,15 @@
 
   .user-name {
     margin-top: 60px;
+    color: #B17C0D;
   }
   .RPGrole{
     font-size: 20px;
     margin: auto;
+    color: #B17C0D;
   }
   
-  .separator {
-    width: calc(100% - 40px);
-  }
+  
   
   .buttons-container {
     
@@ -64,19 +65,23 @@
     flex-direction: row;
     margin-right: auto;
     margin-left: 180px;
+    margin-bottom: 20px;
   }
   
   .buttons-container button {
     margin-bottom: 10px;
     font-size: 16px;
-    color: #ffffff;
+    color: #B17C0D;
     background-color:#33333300;
     border-radius: 15px;
     width: fit-content;
     display: flex;
     border: none;
     cursor: pointer;
+    font-weight: bolder;
+   
   }
+  
   
   .component-container {
     margin-top: 20px;

@@ -34,35 +34,37 @@ function ProfilePage() {
   return (
     <div>
       <NavbarComponent />
-      <div className="profile-container">
-        <div className="cover-image"></div>
-        <div className="profile-picture-container">
+      <div className='profile-container'>
+        <div className='cover-image'></div>
+        <div className='profile-picture-container'>
           {loading ? (
-            <p>Loading user data...</p>
+            <p className='name'>Loading user data...</p>
           ) : (
             userData && (
               <img
                 src={
                   process.env.PUBLIC_URL + `/${userData.ProfilePicturePath}.png`
                 }
-                className="profile-picture"
-                alt="Profile"
+                className='profile-picture'
+                alt='Profile'
               />
             )
           )}
         </div>
-        <div className="name">
+        <div className='name'>
           {userData ? (
             <>
-              <h2 className="user-name">{userData.Name}</h2>
-              <h3 className="RPGrole">{userData.LearningStyle}</h3>
+              <h2 className='user-name'>{userData.Name}</h2>
+              <h3 className='RPGrole'>{userData.LearningStyle}</h3>
             </>
           ) : (
             <p>Loading user data...</p>
           )}
         </div>
-        <hr className="separator" />
-        <div className="buttons-container">
+
+        {/* <hr className='separator' /> */}
+
+        <div className='buttons-container'>
           <Button onClick={() => handleTabClick("courses")}>Courses</Button>
           <Button onClick={() => handleTabClick("milestones")}>
             Milestones
@@ -70,10 +72,10 @@ function ProfilePage() {
           <Button onClick={() => handleTabClick("badges")}>Badges</Button>
           <Button onClick={() => handleTabClick("friends")}>Friends</Button>
         </div>
-        <hr className="separator" />
-        <div className="component-container">
-          {React.cloneElement(tabComponents[activeTab], { userData })}
-        </div>
+      </div>
+      {/* <hr className='separator' /> */}
+      <div className='component-container'>
+        {React.cloneElement(tabComponents[activeTab], { userData })}
       </div>
     </div>
   );

@@ -53,7 +53,7 @@ const Leaderboard = () => {
       {" "}
       <div className='leaderboard-content'>
         {" "}
-        <h2>Leaderboard</h2>
+        <h2 className="leaderboardtitle">Leaderboard</h2>
         <table>
           <thead>
             <tr>
