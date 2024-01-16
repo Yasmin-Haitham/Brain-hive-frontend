@@ -6,9 +6,9 @@ import CourseHeader from "./CourseHeader.js";
 import LearningStylesBar from "./learningstylesbar.js";
 import CoursePDFViewer from "./CoursePDFViewer.js";
 import AuditoryCoursePlayer from "./AuditoryCoursePlayer.js";
-import CourseTodo from "./CourseTodo.js";
 import CourseMenu from "./CourseMenu.js";
 import "../CourseContent.css";
+import Todolist from "./Todolist.js";
 const CourseContent = () => {
   const videoUrl =
     "https://www.youtube.com/watch?v=yqtdtCCWBzY&list=PLGZ7eihNHo7yy0au7Mpz8GP2sc79wVfmX&index=4";
@@ -45,7 +45,7 @@ const CourseContent = () => {
             {selectedStyle === "Auditory" && (
               <AuditoryCoursePlayer audioSrc={audiofile} />
             )}
-            {selectedStyle === "Kinesthetic" && <CourseTodo />}
+            {selectedStyle === "Kinesthetic" && <Todolist />}
           </div>
 
           <LearningStylesBar onSelectStyle={handleStyleSelection} />

@@ -9,13 +9,17 @@ function Todolist() {
     const list = document.querySelector("ul");
     list.addEventListener(
       "click",
+      
       function (ev) {
+        
         if (ev.target.tagName === "LI") {
           ev.target.classList.toggle("checked");
         }
       },
+      
       false
     );
+    
   }, []); // Empty dependency array means the effect runs once after the initial render
 
   const newElement = () => {
@@ -46,8 +50,7 @@ function Todolist() {
   };
 
   return (
-    <div style={{width:"50%", marginTop:"50px"}}>
-     
+    <div style={{ width: "50%", marginTop: "50px" }}>
       <>
         <div id='myDIV' className='header'>
           <h2>To-Do-List</h2>
@@ -57,7 +60,7 @@ function Todolist() {
             placeholder='Add your Own...'
           />
           <Button onClick={newElement} className='addBtn'>
-            Add
+            Add your own To-Do-S
           </Button>
         </div>
         <div className='todo-Container'>

@@ -15,9 +15,10 @@
   }
   
   .course-viewer {
-    flex-grow: 1;/* Styles for the central content area */
+  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: auto; /* If you want a scrollable content area */
+  overflow-y: auto; 
+  /* width: 50px; */
   }
