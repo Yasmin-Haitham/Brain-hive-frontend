@@ -7,7 +7,8 @@ import LearningStylesBar from "./learningstylesbar.js";
 import CoursePDFViewer from "./CoursePDFViewer.js";
 import AuditoryCoursePlayer from "./AuditoryCoursePlayer.js";
 import CourseTodo from "./CourseTodo.js";
-
+import CourseMenu from "./CourseMenu.js";
+import "../CourseContent.css";
 const CourseContent = () => {
   const videoUrl =
     "https://www.youtube.com/watch?v=yqtdtCCWBzY&list=PLGZ7eihNHo7yy0au7Mpz8GP2sc79wVfmX&index=4";
@@ -16,6 +17,12 @@ const CourseContent = () => {
 
   const audiofile =
     "C:/Users/user/Desktop/grad project/Louis Armstrong - What A Wonderful World (Official Video).mp3";
+
+  const courseContent = [
+    { label: "Lecture 1", link: "#lecture1" },
+    { label: "Lecture 2", link: "#lecture2" },
+    // ... more content
+  ];
 
   // Define a state variable to track the selected learning style
   const [selectedStyle, setSelectedStyle] = useState(null);
@@ -26,32 +33,24 @@ const CourseContent = () => {
   return (
     <div>
       <NavbarComponent />
+      <div className='course-content-container'>
+        <div className='course-layout'>
+          <CourseMenu content={courseContent} />
 
-      <LearningStylesBar onSelectStyle={setSelectedStyle} />
+          <div className='course-viewer'>
+            {selectedStyle === "Visual" && <VideoPlayer url={videoUrl} />}
+            {selectedStyle === "Read/Write" && (
+              <CoursePDFViewer file={pdfFile} />
+            )}
+            {selectedStyle === "Auditory" && (
+              <AuditoryCoursePlayer audioSrc={audiofile} />
+            )}
+            {selectedStyle === "Kinesthetic" && <CourseTodo />}
+          </div>
 
-      {selectedStyle === "Visual" && (
-        <div className={styles.videoPlayerContainer}>
-          <VideoPlayer url={videoUrl} className={styles.reactPlayer} />
+          <LearningStylesBar onSelectStyle={handleStyleSelection} />
         </div>
-      )}
-      {selectedStyle === "Read/Write" && (
-        <div>
-          <CoursePDFViewer file={pdfFile} />
-        </div>
-      )}
-      {selectedStyle === "Auditory" && (
-        <div>
-          <AuditoryCoursePlayer audioSrc={audiofile} />
-          <AuditoryCoursePlayer audioSrc={audiofile} />
-        </div>
-      )}
-
-      {selectedStyle === "Kinesthetic" && (
-        <div>
-          <CourseTodo />
-        </div>
-      )}
-     
+      </div>
     </div>
   );
 };

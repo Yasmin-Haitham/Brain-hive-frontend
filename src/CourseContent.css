@@ -1,0 +1,23 @@
+.course-content-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .course-layout {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 50px); /* Adjust the height if you have a header */
+  }
+  
+  .course-menu {
+    position: relative;
+    
+  }
+  
+  .course-viewer {
+    flex-grow: 1;/* Styles for the central content area */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto; /* If you want a scrollable content area */
+  }

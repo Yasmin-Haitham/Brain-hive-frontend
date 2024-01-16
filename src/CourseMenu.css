@@ -1,0 +1,49 @@
+.course-menu {
+    width: 250px; /* Or any appropriate width */
+    background: #333; /* Background color of the menu */
+    color: #fff; 
+    height: 100vh; 
+    position: fixed; /* Positioning relative to the viewport */
+    left: 0; /* Align to the left side */
+    top: 0; /* Align to the top */
+    overflow-y: auto; /* Enable scroll if content overflows */
+    overflow-x: hidden;
+    transition: transform 0.3s ease-in-out; /*Smooth collapsing animation */
+    }
+    
+    .course-menu.collapsed {
+    transform: translateX(-85%); /* Move the menu out of view */
+    }
+    
+    .menu-toggle {
+    position: absolute;
+    top: 0;
+    right: 0px; /* Position the toggle button outside the menu */
+    background: #444;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    }
+    
+    .menu-content {
+    margin-top: 40px;
+    /* padding: 10px; */
+    }
+    
+    .menu-content ul {
+    list-style: none; /* Remove list bullets */
+    padding: 0;
+    margin: 0;
+    }
+    
+    .menu-content li a {
+    color: #fff; /* Anchor tag text color */
+    text-decoration: none; /*Remove underlines from links */
+    display: block; /* Block-level links for easier click */
+    padding: 5px 0; /* Padding for list items */
+    }
+    
+    .menu-content li a:hover {
+    background-color: #555; /* Hover background color */
+    }  
