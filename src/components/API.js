@@ -23,9 +23,13 @@ const getCourses = (setCards) => {
     );
 };
 const getProfileCourses = (userCoursesArray, setCourses, setError) => {
+
+  // Extract course names from the array of objects
+  const courseNames = userCoursesArray.map(course => course.courseName);
+  console.log(courseNames)
   axios
     .get("http://localhost:3030/courses/profileCourses", {
-      params: { userCourses: userCoursesArray.join(',') },
+      params: { userCourses: courseNames },
     })
     .then((res) => setCourses(res.data))
     .catch((err) => setError("Error fetching courses"));
