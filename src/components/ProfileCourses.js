@@ -9,7 +9,7 @@ function ProfileCourses({ userData }) {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const userDataCourses = userData?.enrolledCourses || []; // Use optional chaining
-  console.log(userDataCourses);
+  
 
   const [error, setError] = useState(null);
 
