@@ -14,7 +14,7 @@ import QuizPage from "./components/QuizPage";
 import ProfilePage from "./components/ProfilePage";
 import Courses from "./components/Courses";
 import CourseContent from "./components/CourseContent";
-import Todolist from './components/todolist';
+import Todolist from './components/Todolist';
 function App() {
   return (
     <div className='App'>

@@ -8,7 +8,7 @@ import CoursePDFViewer from "./CoursePDFViewer.js";
 import AuditoryCoursePlayer from "./AuditoryCoursePlayer.js";
 import CourseMenu from "./CourseMenu.js";
 import "../CourseContent.css";
-import Todolist from "./todolist.js";
+import Todolist from "./Todolist.js";
 const CourseContent = () => {
   const videoUrl =
     "https://www.youtube.com/watch?v=yqtdtCCWBzY&list=PLGZ7eihNHo7yy0au7Mpz8GP2sc79wVfmX&index=4";
