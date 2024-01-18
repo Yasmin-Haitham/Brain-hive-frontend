@@ -17,7 +17,7 @@ function ProfileCourses({ userData }) {
     api.getProfileCourses(userDataCourses, setCourses, setError);
   }, [userDataCourses]);
   const handleClick = (courseId) => {
-    navigate(`/courses/${courseId}`);
+    navigate(`/CourseContent/${courseId}`);
   };
 
   return (

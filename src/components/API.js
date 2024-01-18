@@ -14,6 +14,8 @@ const getUser = (setUserData, setLoading) => {
       console.error("Error fetching user data:", error);
     });
 };
+
+// Fetch all courses from contentful
 const getCourses = (setCards) => {
   axios
     .get("http://localhost:3030/courses")
@@ -22,11 +24,12 @@ const getCourses = (setCards) => {
       console.error("Error fetching data from Contentful:", error)
     );
 };
-const getProfileCourses = (userCoursesArray, setCourses, setError) => {
 
+//Fetch specific courses from contentful
+const getProfileCourses = (userCoursesArray, setCourses, setError) => {
   // Extract course names from the array of objects
-  const courseNames = userCoursesArray.map(course => course.courseName);
-  
+  const courseNames = userCoursesArray.map((course) => course.courseName);
+
   axios
     .get("http://localhost:3030/courses/profileCourses", {
       params: { userCourses: courseNames },
@@ -35,4 +38,40 @@ const getProfileCourses = (userCoursesArray, setCourses, setError) => {
     .catch((err) => setError("Error fetching courses"));
 };
 
-export { getUser, getCourses, getProfileCourses };
+//Fetch certain course and all its content
+const getOneCourse = (id, setCurrentCourse, setAPI_KEY) => {
+  axios
+    .get("http://localhost:3030/courses/content", {
+      params: { id: id },
+    })
+    .then((res) => {
+      setCurrentCourse(res.data);
+      setAPI_KEY(res.data.API_KEY);
+    })
+    .catch((err) => {
+      
+      console.log(err);
+    });
+};
+
+const extractYouTubeTitle = (url, API_KEY) => {
+  // Extract video ID from the YouTube URL
+  const videoId = url.split("v=")[1];
+
+  // Make a request to the YouTube Data API to fetch video details
+  fetch(
+    `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${API_KEY}&part=snippet`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const title = data.items[0].snippet.title;
+      console.log(title); // Output the video title
+      return(title)
+    })
+    .catch((error) => {
+      console.error("Error fetching video details:", error);
+    });
+};
+
+
+export { getUser, getCourses, getProfileCourses, getOneCourse, extractYouTubeTitle };
