@@ -1,14 +1,26 @@
-.gallery-container {
+.gallery-containers {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Adjust for desired number of columns */
+    grid-template-columns: repeat(4, 1fr); /* Adjust for desired number of columns */
     gap: 10px;
-    max-height: 80vh; /* Adjust as per your requirement */
-    overflow-y: auto; /* Enables vertical scrolling */
-    background-color: black;
-    width: 400px;
+    height: 100%;;
+    overflow-y:auto; 
+    overflow-x: hidden;
+    background-color: rgba(0, 0, 0, 0.567);
+    width: 900px;
+    margin-top:17rem;
+    margin-right: 100px;
+    border-radius: 10px;
   }
+
+
+  
   
   .gallery-item {
     /* Styles for each gallery item, you can adjust as per your design */
+    width: 10px;
+    
+  }
+  .infographic{
+    width: 200px;
   }
   
