@@ -30,11 +30,17 @@ const CourseContent = () => {
     setPdfData(currentCourse.courseLectures);
     setTasks(currentCourse.courseSections);
 
-    const videoTitles = () => {
-      return videoData.map((item) => {
+    const videoTitles = async () => {
+      const titlesPromises = videoData.map((item) => {
         return api.extractYouTubeTitle(item, API_KEY);
       });
+    
+      // Wait for all promises to resolve
+      const titles = await Promise.all(titlesPromises);
+    
+      return titles;
     };
+    
   }, [courseId]);
 ///////////////////////////////////////////////////BACKEND STOP/////////////////////////////////////////////////////
   const videoUrl =
