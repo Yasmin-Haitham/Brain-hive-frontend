@@ -14,52 +14,75 @@ import "../CourseContent.css";
 import * as api from "./API.js";
 
 const CourseContent = () => {
-  ///////////////////////////////////////////////////BACKEND/////////////////////////////////////////////////////
-  const { courseId } = useParams();
-  const [videoData, setVideoData] = useState([]);
-  const [pdfData, setPdfData] = useState([]);
-  const [tasks, setTasks] = useState([]);
-  // const [audioData, setAudioData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [currentCourse, setCurrentCourse] = useState();
-  const [API_KEY, setAPI_KEY] = useState("");
-
-  useEffect(() => {
-    // Fetch course data from the server
-    api.getOneCourse(courseId, setCurrentCourse, setAPI_KEY);
-
-    const processCourseData = async () => {
-      // Set state variables based on the fetched course data
-      setVideoData(currentCourse.courseLectureRecordings);
-      setPdfData(currentCourse.courseLectures);
-      setTasks(currentCourse.courseSections);
-
-      // Create video object with title and link
-      const videoObject = await createVideoObject();
-      console.log("Video Object:", videoObject);
-
-      // Create PDF object with title and pdf
-      const pdfObject = createPdfObject();
-      console.log("PDF Object:", pdfObject);
-
-      // Create task object with title, pdf, and status (boolean)
-      const taskObject = createTaskObject();
-      console.log("Task Object:", taskObject);
-    };
-
-    const createVideoObject = async () => {
-      const titlesPromises = videoData.map(async (item) => {
-        const title = await api.extractYouTubeTitle(item, API_KEY);
-        return { title, link: item };
-      });
-
-      // Wait for all promises to resolve
-      const titles = await Promise.all(titlesPromises);
-    
-      return titles;
-    };
-    
-  }, [courseId]);
+   ///////////////////////////////////////////////////BACKEND/////////////////////////////////////////////////////
+   const { courseId } = useParams();
+   const [videoData, setVideoData] = useState([]);
+   const [pdfData, setPdfData] = useState([]);
+   const [tasks, setTasks] = useState([]);
+   // const [audioData, setAudioData] = useState(null);
+   const [loading, setLoading] = useState(true);
+   const [currentCourse, setCurrentCourse] = useState();
+   const [API_KEY, setAPI_KEY] = useState("");
+ 
+   useEffect(() => {
+     // Fetch course data from the server
+     api.getOneCourse(courseId, setCurrentCourse, setAPI_KEY);
+ 
+     const processCourseData = async () => {
+       // Set state variables based on the fetched course data
+       setVideoData(currentCourse.courseLectureRecordings);
+       setPdfData(currentCourse.courseLectures);
+       setTasks(currentCourse.courseSections);
+ 
+       // Create video object with title and link
+       const videoObject = await createVideoObject();
+       console.log("Video Object:", videoObject);
+ 
+       // Create PDF object with title and pdf
+       const pdfObject = createPdfObject();
+       console.log("PDF Object:", pdfObject);
+ 
+       // Create task object with title, pdf, and status (boolean)
+       const taskObject = createTaskObject();
+       console.log("Task Object:", taskObject);
+     };
+ 
+     const createVideoObject = async () => {
+       const titlesPromises = videoData.map(async (item) => {
+         const title = await api.extractYouTubeTitle(item, API_KEY);
+         return { title, link: item };
+       });
+ 
+       // Wait for all promises to resolve
+       const videoObjects = await Promise.all(titlesPromises);
+ 
+       return videoObjects;
+     };
+ 
+     const createPdfObject = () => {
+       // Create PDF object with title and pdf link
+       const pdfObject = pdfData.map((item) => ({
+         title: item.fields.title,
+         link: item.fields.file.url,
+       }));
+       return pdfObject;
+     };
+     
+     const createTaskObject = () => {
+       // Create task object with title, pdf, and status
+       const taskObject = tasks.map((item) => ({
+         title: item.fields.title,
+         pdf: item.fields.file.url,
+         status: false,
+       }));
+       return taskObject;
+     };
+ 
+     if (currentCourse) {
+       processCourseData();
+     }
+   }, [courseId]);
+ 
 ///////////////////////////////////////////////////BACKEND STOP/////////////////////////////////////////////////////
   const videoUrl =
     "https://www.youtube.com/watch?v=yqtdtCCWBzY&list=PLGZ7eihNHo7yy0au7Mpz8GP2sc79wVfmX&index=4";
