@@ -9,7 +9,7 @@ import CoursePDFViewer from "./CoursePDFViewer.js";
 import AuditoryCoursePlayer from "./AuditoryCoursePlayer.js";
 import CourseMenu from "./CourseMenu.js";
 import "../CourseContent.css";
-import Todolist from "./todolist.js";
+import Todolist from "./Todolist.js";
 import * as api from "./API.js";
 
 const CourseContent = () => {
