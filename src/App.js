@@ -14,7 +14,8 @@ import QuizPage from "./components/QuizPage";
 import ProfilePage from "./components/ProfilePage";
 import Courses from "./components/Courses";
 import CourseContent from "./components/CourseContent";
-import Todolist from './components/Todolist';
+import Todolist from "./components/Todolist";
+import GalleryGrid from "./components/GalleryGrid";
 function App() {
   return (
     <div className='App'>
@@ -28,6 +29,7 @@ function App() {
           <Route path='/Courses' element={<Courses />} />
           <Route path='/CourseContent/:courseId' element={<CourseContent />} />
           <Route path='/todolist' element={<Todolist />} />
+          <Route path='/GalleryGrid' element={<GalleryGrid />} />
         </Routes>
       </BrowserRouter>
     </div>

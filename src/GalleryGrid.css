@@ -1,0 +1,13 @@
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Adjust for desired number of columns */
+    gap: 10px;
+    max-height: 80vh; /* Adjust as per your requirement */
+    overflow-y: auto; /* Enables vertical scrolling */
+    background-color: black;
+  }
+  
+  .gallery-item {
+    /* Styles for each gallery item, you can adjust as per your design */
+  }
+  

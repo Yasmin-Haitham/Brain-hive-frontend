@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import VideoPlayer from "./VideoPlayer.js";
 import NavbarComponent from "./NavbarComponent";
 import styles from "../VideoPlayer.module.css";
 import CourseHeader from "./CourseHeader.js";
 import LearningStylesBar from "./learningstylesbar.js";
-import CoursePDFViewer from "./CoursePDFViewer.js";
-import AuditoryCoursePlayer from "./AuditoryCoursePlayer.js";
+import VideoPlayer from "./VideoPlayer.js"; //Auditory
+import CoursePDFViewer from "./CoursePDFViewer.js"; // Read/Write
+import GalleryGrid from "./GalleryGrid.js"; // Visual
+import Todolist from "./Todolist.js"; // kinesthetic
 import CourseMenu from "./CourseMenu.js";
 import "../CourseContent.css";
-import Todolist from "./Todolist.js";
+
 import * as api from "./API.js";
 
 const CourseContent = () => {
@@ -53,36 +54,13 @@ const CourseContent = () => {
       });
 
       // Wait for all promises to resolve
-      const videoObjects = await Promise.all(titlesPromises);
-
-      return videoObjects;
-    };
-
-    const createPdfObject = () => {
-      // Create PDF object with title and pdf link
-      const pdfObject = pdfData.map((item) => ({
-        title: item.fields.title,
-        link: item.fields.file.url,
-      }));
-      return pdfObject;
+      const titles = await Promise.all(titlesPromises);
+    
+      return titles;
     };
     
-    const createTaskObject = () => {
-      // Create task object with title, pdf, and status
-      const taskObject = tasks.map((item) => ({
-        title: item.fields.title,
-        pdf: item.fields.file.url,
-        status: false,
-      }));
-      return taskObject;
-    };
-
-    if (currentCourse) {
-      processCourseData();
-    }
   }, [courseId]);
-
-  ///////////////////////////////////////////////////BACKEND STOP/////////////////////////////////////////////////////
+///////////////////////////////////////////////////BACKEND STOP/////////////////////////////////////////////////////
   const videoUrl =
     "https://www.youtube.com/watch?v=yqtdtCCWBzY&list=PLGZ7eihNHo7yy0au7Mpz8GP2sc79wVfmX&index=4";
   const pdfFile =
@@ -106,18 +84,16 @@ const CourseContent = () => {
   return (
     <div>
       <NavbarComponent />
-      <div className="course-content-container">
-        <div className="course-layout">
+      <div className='course-content-container'>
+        <div className='course-layout'>
           <CourseMenu content={courseContent} />
 
-          <div className="course-viewer">
-            {selectedStyle === "Visual" && <VideoPlayer url={videoUrl} />}
+          <div className='course-viewer'>
+            {selectedStyle === "Auditory" && <VideoPlayer url={videoUrl} />}
             {selectedStyle === "Read/Write" && (
               <CoursePDFViewer file={pdfFile} />
             )}
-            {selectedStyle === "Auditory" && (
-              <AuditoryCoursePlayer audioSrc={audiofile} />
-            )}
+            {selectedStyle === "Visual" && <GalleryGrid />}
             {selectedStyle === "Kinesthetic" && <Todolist />}
           </div>
 
