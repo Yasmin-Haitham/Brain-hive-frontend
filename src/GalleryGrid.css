@@ -5,6 +5,7 @@
     max-height: 80vh; /* Adjust as per your requirement */
     overflow-y: auto; /* Enables vertical scrolling */
     background-color: black;
+    width: 400px;
   }
   
   .gallery-item {
