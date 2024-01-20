@@ -12,7 +12,7 @@ import CourseMenu from "./CourseMenu.js";
 import "../CourseContent.css";
 
 import * as api from "./API.js";
-
+  
 const CourseContent = () => {
   ///////////////////////////////////////////////////BACKEND/////////////////////////////////////////////////////
   const [selectedContentItem, setSelectedContentItem] = useState(null); // Add this state
