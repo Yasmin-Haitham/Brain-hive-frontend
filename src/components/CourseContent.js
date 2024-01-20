@@ -15,7 +15,7 @@ import * as api from "./API.js";
 
 const CourseContent = () => {
   ///////////////////////////////////////////////////BACKEND/////////////////////////////////////////////////////
-
+  const [selectedContentItem, setSelectedContentItem] = useState(null); // Add this state
   const { courseId } = useParams();
   const [videoData, setVideoData] = useState([]);
   const [pdfData, setPdfData] = useState([]);
@@ -39,10 +39,14 @@ const CourseContent = () => {
 
     return videoObjects;
   };
+  const handleMenuItemClick = (selecteditem) => {
+    setSelectedContentItem(selecteditem);
+  };
 
   const createPdfObject = () => {
     // Create PDF object with title and pdf link
     const pdfObject = pdfData.map((item) => ({
+      // Renamed 'item' to 'item'
       title: item.fields.title,
       link: item.fields.file.url,
     }));
@@ -65,17 +69,19 @@ const CourseContent = () => {
     }));
     return imageObject;
   };
- 
-  useEffect(async()=>{
+
+  useEffect(async () => {
     try {
-      const result = await Promise.resolve(api.getUser(setUserData, setLoading))
+      const result = await Promise.resolve(
+        api.getUser(setUserData, setLoading)
+      );
       console.log("user data set \n" + userData);
       setUserDataLearningStyle();
-      setUserSet(true)
+      setUserSet(true);
     } catch (error) {
       console.log(error);
     }
-  },[userSet])
+  }, [userSet]);
   console.log(userSet);
   useEffect(() => {
     setLoading(true);
@@ -90,10 +96,14 @@ const CourseContent = () => {
     setLoading(false);
   }, [courseId]);
 
-  const fetchData = async() => {
+  const fetchData = async () => {
     // Fetch course data from the server
-    const result = await Promise.resolve(api.getOneCourse(courseId, setCurrentCourse, setAPI_KEY));
-    return result
+    const result = await api.getOneCourse(
+      courseId,
+      setCurrentCourse,
+      setAPI_KEY
+    );
+    return result;
   };
   const setUserDataLearningStyle = () => {
     if (!userData) {
@@ -101,9 +111,9 @@ const CourseContent = () => {
       alert("Error: User data not available");
       return;
     }
-  
+
     const userDefaultStyle = userData.LearningStyle;
-    console.log (userDefaultStyle);
+    console.log(userDefaultStyle);
     if (userDefaultStyle === "Auditory") {
       setSelectedStyle("Auditory");
     } else if (userDefaultStyle === "ReadWrite") {
@@ -120,7 +130,7 @@ const CourseContent = () => {
   // Proceed with processing course data
   const processCourseData = async () => {
     // Set state variables based on the fetched course data
-    console.log(currentCourse)
+    console.log(currentCourse);
     setVideoData(currentCourse.courseLectureRecordings);
     setPdfData(currentCourse.courseLectures);
     setTasks(currentCourse.courseSections);
@@ -159,12 +169,12 @@ const CourseContent = () => {
     switch (selectedStyle) {
       case "Auditory":
         return videoData.map((video, index) => ({
-          label: `Lecture Recording ${index + 1}`,
+          label: `item Recording ${index + 1}`,
           link: `#${video.link}`,
         }));
       case "Read/Write":
         return pdfData.map((pdf, index) => ({
-          label: `Lecture ${index + 1}`,
+          label: `item ${index + 1}`,
           link: `#${pdf.link}`,
         }));
       case "Visual":
@@ -186,26 +196,40 @@ const CourseContent = () => {
 
   const handleStyleSelection = (style) => {
     setSelectedStyle(style);
+    // Reset the selected content item when the style changes
+    setSelectedContentItem(null);
   };
 
   return (
     <div>
       <NavbarComponent />
-      <div className="course-content-container">
-        <div className="course-layout">
+      <div className='course-content-container'>
+        <div className='course-layout'>
           {loading ? (
-            <p>Loading...</p> // Display a loading indicator while data is being fetched
+            <p>Loading...</p>
           ) : (
             <>
-              <CourseMenu content={courseContent} />
+              {/* Pass handleMenuItemClick to CourseMenu */}
 
-              <div className="course-viewer">
-                {selectedStyle === "Auditory" && <VideoPlayer url={videoUrl} />}
-                {selectedStyle === "Read/Write" && (
-                  <CoursePDFViewer file={pdfFile} />
+              <CourseMenu
+                content={courseContent}
+                onSelectContentItem={handleMenuItemClick}
+              />
+
+              <div className='course-viewer'>
+                {/* Render components based on selectedStyle and selectedContentItem */}
+                {selectedStyle === "Auditory" && selectedContentItem && (
+                  <VideoPlayer url={selectedContentItem.link} />
                 )}
-                {selectedStyle === "Visual" && <GalleryGrid />}
-                {selectedStyle === "Kinesthetic" && <Todolist />}
+                {selectedStyle === "Read/Write" && selectedContentItem && (
+                  <CoursePDFViewer file={selectedContentItem.link} />
+                )}
+                {selectedStyle === "Visual" && selectedContentItem && (
+                  <GalleryGrid images={selectedContentItem.images} />
+                )}
+                {selectedStyle === "Kinesthetic" && selectedContentItem && (
+                  <Todolist tasks={selectedContentItem.tasks} />
+                )}
               </div>
 
               <LearningStylesBar onSelectStyle={handleStyleSelection} />
