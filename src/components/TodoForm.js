@@ -23,7 +23,7 @@ export const TodoForm = ({ addTodo }) => {
         placeholder="What is the task today?"
       />
       <button type="submit" className="todo-btn">
-        Add Task
+        Add Your Own!
       </button>
     </form>
   );
