@@ -66,9 +66,9 @@ const CourseContent = () => {
     return imageObject;
   };
  
-  useEffect(async()=>{
+  useEffect(()=>{
     try {
-      const result = await Promise.resolve(api.getUser(setUserData, setLoading))
+      const result = fetchUserData()
       console.log("user data set \n" + userData);
       setUserDataLearningStyle();
       setUserSet(true)
@@ -89,7 +89,9 @@ const CourseContent = () => {
     processCourseData();
     setLoading(false);
   }, [courseId]);
-
+  const fetchUserData = async ()=>{
+    await Promise.resolve(api.getUser(setUserData, setLoading))
+  }
   const fetchData = async() => {
     // Fetch course data from the server
     const result = await Promise.resolve(api.getOneCourse(courseId, setCurrentCourse, setAPI_KEY));
