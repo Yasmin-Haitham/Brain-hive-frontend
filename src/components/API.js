@@ -7,7 +7,7 @@ const getUser = (setUserData, setLoading) => {
     .then((res) => {
       setUserData(res.data);
       setLoading(false);
-      console.log(res.data);
+      console.log("User Data Fetched " + res.data);
     })
     .catch((error) => {
       setLoading(false);
@@ -49,7 +49,6 @@ const getOneCourse = (id, setCurrentCourse, setAPI_KEY) => {
       setAPI_KEY(res.data.API_KEY);
     })
     .catch((err) => {
-      
       console.log(err);
     });
 };
@@ -66,12 +65,17 @@ const extractYouTubeTitle = (url, API_KEY) => {
     .then((data) => {
       const title = data.items[0].snippet.title;
       console.log(title); // Output the video title
-      return(title)
+      return title;
     })
     .catch((error) => {
       console.error("Error fetching video details:", error);
     });
 };
 
-
-export { getUser, getCourses, getProfileCourses, getOneCourse, extractYouTubeTitle };
+export {
+  getUser,
+  getCourses,
+  getProfileCourses,
+  getOneCourse,
+  extractYouTubeTitle,
+};

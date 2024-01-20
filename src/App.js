@@ -27,7 +27,7 @@ function App() {
           <Route path='/Home' element={<Home />} />
           <Route path='/ProfilePage' element={<ProfilePage />} />
           <Route path='/Courses' element={<Courses />} />
-          <Route path='/CourseContent/:courseId' element={<CourseContent />} />
+          <Route path="/CourseContent/:courseId" element={<CourseContent />} />
           <Route path='/todolist' element={<Todolist />} />
           <Route path='/GalleryGrid' element={<GalleryGrid />} />
         </Routes>
