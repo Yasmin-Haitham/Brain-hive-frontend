@@ -10,9 +10,9 @@ import GalleryGrid from "./GalleryGrid.js"; // Visual
 import Todolist from "./Todolist.js"; // kinesthetic
 import CourseMenu from "./CourseMenu.js";
 import "../CourseContent.css";
-
+import { TodoWrapper } from "./TodoWrapper.js";
 import * as api from "./API.js";
-  
+
 const CourseContent = () => {
   ///////////////////////////////////////////////////BACKEND/////////////////////////////////////////////////////
   const [selectedContentItem, setSelectedContentItem] = useState(null); // Add this state
@@ -69,10 +69,12 @@ const CourseContent = () => {
     }));
     return imageObject;
   };
- 
-  useEffect(async()=>{
+
+  useEffect(async () => {
     try {
-      const result = await Promise.resolve(api.getUser(setUserData, setLoading))
+      const result = await Promise.resolve(
+        api.getUser(setUserData, setLoading)
+      );
       console.log("user data set \n" + userData);
       setUserDataLearningStyle();
       setUserSet(true);
@@ -94,7 +96,7 @@ const CourseContent = () => {
     setLoading(false);
   }, [courseId]);
 
-  const fetchData = async() => {
+  const fetchData = async () => {
     // Fetch course data from the server
     const result = await api.getOneCourse(
       courseId,
@@ -201,8 +203,8 @@ const CourseContent = () => {
   return (
     <div>
       <NavbarComponent />
-      <div className='course-content-container'>
-        <div className='course-layout'>
+      <div className="course-content-container">
+        <div className="course-layout">
           {loading ? (
             <p>Loading...</p>
           ) : (
@@ -214,7 +216,7 @@ const CourseContent = () => {
                 onSelectContentItem={handleMenuItemClick}
               />
 
-              <div className='course-viewer'>
+              <div className="course-viewer">
                 {/* Render components based on selectedStyle and selectedContentItem */}
                 {selectedStyle === "Auditory" && selectedContentItem && (
                   <VideoPlayer url={selectedContentItem.link} />
@@ -226,7 +228,7 @@ const CourseContent = () => {
                   <GalleryGrid images={selectedContentItem.images} />
                 )}
                 {selectedStyle === "Kinesthetic" && selectedContentItem && (
-                  <Todolist tasks={selectedContentItem.tasks} />
+                  <TodoWrapper />
                 )}
               </div>
 
