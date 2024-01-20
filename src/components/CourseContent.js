@@ -26,6 +26,7 @@ const CourseContent = () => {
   const [currentCourse, setCurrentCourse] = useState();
   const [API_KEY, setAPI_KEY] = useState("");
   const [selectedStyle, setSelectedStyle] = useState(null);
+  const [userSet, setUserSet] = useState(false);
 
   const createVideoObject = async () => {
     const titlesPromises = videoData.map(async (item) => {
@@ -65,16 +66,17 @@ const CourseContent = () => {
     return imageObject;
   };
  
-  useEffect(()=>{
+  useEffect(async()=>{
     try {
-      api.getUser(setUserData, setLoading);
+      const result = await Promise.resolve(api.getUser(setUserData, setLoading))
       console.log("user data set \n" + userData);
       setUserDataLearningStyle();
+      setUserSet(true)
     } catch (error) {
       console.log(error);
     }
-  },[selectedStyle])
-
+  },[userSet])
+  console.log(userSet);
   useEffect(() => {
     setLoading(true);
     try {
@@ -88,9 +90,10 @@ const CourseContent = () => {
     setLoading(false);
   }, [courseId]);
 
-  const fetchData = () => {
+  const fetchData = async() => {
     // Fetch course data from the server
-    return api.getOneCourse(courseId, setCurrentCourse, setAPI_KEY);
+    const result = await Promise.resolve(api.getOneCourse(courseId, setCurrentCourse, setAPI_KEY));
+    return result
   };
   const setUserDataLearningStyle = () => {
     if (!userData) {
