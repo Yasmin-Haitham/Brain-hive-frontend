@@ -17,21 +17,22 @@ import CourseContent from "./components/CourseContent";
 import Todolist from "./components/Todolist";
 import GalleryGrid from "./components/GalleryGrid";
 import CourseMenu from "./components/CourseMenu";
+import { TodoWrapper } from "./components/TodoWrapper";
 function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<SignIn />} />
-          <Route path='/signUp' element={<SignUp />} />
-          <Route path='/quiz' element={<QuizPage />} />
-          <Route path='/Home' element={<Home />} />
-          <Route path='/ProfilePage' element={<ProfilePage />} />
-          <Route path='/Courses' element={<Courses />} />
-          <Route path='/CourseContent/:courseId' element={<CourseContent />} />
-          <Route path='/todolist' element={<Todolist />} />
-          <Route path='/GalleryGrid' element={<GalleryGrid />} />
-          <Route path='/CourseMenu' element={<CourseMenu />} />
+          <Route path="/" element={<SignIn />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/quiz" element={<QuizPage />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/ProfilePage" element={<ProfilePage />} />
+          <Route path="/Courses" element={<Courses />} />
+          <Route path="/CourseContent/:courseId" element={<CourseContent />} />
+          <Route path="/todolist" element={<TodoWrapper />} />
+          <Route path="/GalleryGrid" element={<GalleryGrid />} />
+          <Route path="/CourseMenu" element={<CourseMenu />} />
         </Routes>
       </BrowserRouter>
     </div>
