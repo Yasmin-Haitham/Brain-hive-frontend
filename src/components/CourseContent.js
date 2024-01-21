@@ -28,6 +28,9 @@ const CourseContent = () => {
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [userSet, setUserSet] = useState(false);
 
+  const handleMenuItemClick = (selecteditem) => {
+    setSelectedContentItem(selecteditem);
+  };
   const createVideoObject = async () => {
     const titlesPromises = videoData.map(async (item) => {
       const title = await api.extractYouTubeTitle(item, API_KEY);
@@ -39,14 +42,11 @@ const CourseContent = () => {
 
     return videoObjects;
   };
-  const handleMenuItemClick = (selecteditem) => {
-    setSelectedContentItem(selecteditem);
-  };
 
   const createPdfObject = () => {
     // Create PDF object with title and pdf link
     const pdfObject = pdfData.map((item) => ({
-      // Renamed 'item' to 'item'
+      
       title: item.fields.title,
       link: item.fields.file.url,
     }));
@@ -70,22 +70,24 @@ const CourseContent = () => {
     return imageObject;
   };
  
-  useEffect(async()=>{
+  useEffect(()=>{
     try {
-      const result = await Promise.resolve(api.getUser(setUserData, setLoading))
-      console.log("user data set \n" + userData);
+      const result = fetchUserData()
+      console.log( result);
       setUserDataLearningStyle();
-      setUserSet(true);
+      setUserSet(true)
+      return result
     } catch (error) {
       console.log(error);
     }
-  }, [userSet]);
+  },[userSet])
   console.log(userSet);
   useEffect(() => {
     setLoading(true);
     try {
-      fetchData();
+      const result = fetchData();
       console.log("Data Fetched");
+      return result;
     } catch {
       alert(`Error: No course found for ID ${courseId}`);
       setLoading(false);
@@ -94,14 +96,13 @@ const CourseContent = () => {
     setLoading(false);
   }, [courseId]);
 
+  const fetchUserData = async ()=>{
+    return await Promise.resolve(api.getUser(setUserData, setLoading))
+  }
   const fetchData = async() => {
     // Fetch course data from the server
-    const result = await api.getOneCourse(
-      courseId,
-      setCurrentCourse,
-      setAPI_KEY
-    );
-    return result;
+    const result = await Promise.resolve(api.getOneCourse(courseId, setCurrentCourse, setAPI_KEY));
+    return result
   };
   const setUserDataLearningStyle = () => {
     if (!userData) {
