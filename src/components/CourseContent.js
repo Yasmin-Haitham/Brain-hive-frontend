@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import NavbarComponent from "./NavbarComponent";
-import styles from "../VideoPlayer.module.css";
-import CourseHeader from "./CourseHeader.js";
-import LearningStylesBar from "./learningstylesbar.js";
-import VideoPlayer from "./VideoPlayer.js"; //Auditory
-import CoursePDFViewer from "./CoursePDFViewer.js"; // Read/Write
-import GalleryGrid from "./GalleryGrid.js"; // Visual
-import Todolist from "./Todolist.js"; // kinesthetic
-import CourseMenu from "./CourseMenu.js";
-import "../CourseContent.css";
-import { TodoWrapper } from "./TodoWrapper.js";
-import * as api from "./API.js";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import NavbarComponent from './NavbarComponent';
+import styles from '../VideoPlayer.module.css';
+import CourseHeader from './CourseHeader.js';
+import LearningStylesBar from './learningstylesbar.js';
+import VideoPlayer from './VideoPlayer.js'; //Auditory
+import CoursePDFViewer from './CoursePDFViewer.js'; // Read/Write
+import GalleryGrid from './GalleryGrid.js'; // Visual
+import Todolist from './Todolist.js'; // kinesthetic
+import CourseMenu from './CourseMenu.js';
+import '../CourseContent.css';
+import { TodoWrapper } from './TodoWrapper.js';
+import * as api from './API.js';
 
 const CourseContent = () => {
   ///////////////////////////////////////////////////BACKEND/////////////////////////////////////////////////////
@@ -23,18 +23,19 @@ const CourseContent = () => {
   const [imageData, setImageData] = useState([]);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [currentCourse, setCurrentCourse] = useState();
-  const [API_KEY, setAPI_KEY] = useState("");
+  const [currentCourse, setCurrentCourse] = useState(null);
+  const [API_KEY, setAPI_KEY] = useState('');
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [userSet, setUserSet] = useState(false);
+  const [courseSet, setCourseSet] = useState(false);
 
   const handleMenuItemClick = (selecteditem) => {
     setSelectedContentItem(selecteditem);
   };
-  const createVideoObject = async () => {
+  const createVideoObject = async (videoData) => {
     const titlesPromises = videoData.map(async (item) => {
       const title = await api.extractYouTubeTitle(item, API_KEY);
-      return { title, link: item };
+      return { title: title, link: item };
     });
 
     // Wait for all promises to resolve
@@ -43,17 +44,16 @@ const CourseContent = () => {
     return videoObjects;
   };
 
-  const createPdfObject = () => {
+  const createPdfObject = (pdfData) => {
     // Create PDF object with title and pdf link
     const pdfObject = pdfData.map((item) => ({
-      
       title: item.fields.title,
       link: item.fields.file.url,
     }));
     return pdfObject;
   };
 
-  const createTaskObject = () => {
+  const createTaskObject = (tasks) => {
     // Create task object with title, pdf, and status
     const taskObject = tasks.map((item) => ({
       title: item.fields.title,
@@ -62,132 +62,118 @@ const CourseContent = () => {
     }));
     return taskObject;
   };
-  const createImageObject = () => {
+  const createImageObject = (imageData) => {
     const imageObject = imageData.map((item) => ({
       title: item.fields.title,
       imgSrc: item.fields.file.url,
     }));
     return imageObject;
   };
- 
-  
+
   useEffect(() => {
     setLoading(true);
     try {
-      const result = fetchUserData()
-      console.log( result);
-      setUserDataLearningStyle();
-      setUserSet(true)
-      
+      if (!userSet) {
+        fetchUserData();
+      } else {
+        setUserDataLearningStyle();
+      }
     } catch (error) {
       console.log(error);
     }
     try {
-      const result = fetchData();
-      console.log("Data Fetched");
-      
-    } catch {
-      alert(`Error: No course found for ID ${courseId}`);
+      if (!courseSet) {
+        fetchData();
+      } else {
+        processCourseData();
+      }
+    } catch (e) {
+      alert(`Error: No course found for ID ${e}`);
       setLoading(false);
     }
-    processCourseData();
     setLoading(false);
-  }, [courseId, userSet]);
+  }, [courseSet, userSet]);
 
-  const fetchUserData =  ()=>{
-    return (api.getUser(setUserData, setLoading))
-  }
-  const fetchData = () => {
+  const fetchUserData = async () => {
+    await api.getUser(setUserData, setUserSet, setLoading);
+  };
+  const fetchData = async () => {
     // Fetch course data from the server
-    const result = api.getOneCourse(courseId, setCurrentCourse, setAPI_KEY);
-    console.log(result)
-    return result
+    await api.getOneCourse(courseId, setCourseSet, setCurrentCourse, setAPI_KEY);
   };
   const setUserDataLearningStyle = () => {
     if (!userData) {
       // Handle the case where userData is null
-      console.log("Error: User data not available");
+      console.log('Error: User data not available');
       return;
     }
 
     const userDefaultStyle = userData.LearningStyle;
     console.log(userDefaultStyle);
-    if (userDefaultStyle === "Auditory") {
-      setSelectedStyle("Auditory");
-    } else if (userDefaultStyle === "ReadWrite") {
-      setSelectedStyle("Read/Write");
-    } else if (userDefaultStyle === "Visual") {
-      setSelectedStyle("Visual");
-    } else if (userDefaultStyle === "Kinesthetic") {
-      setSelectedStyle("Kinesthetic");
+    if (userDefaultStyle === 'Auditory') {
+      setSelectedStyle('Auditory');
+    } else if (userDefaultStyle === 'ReadWrite') {
+      setSelectedStyle('Read/Write');
+    } else if (userDefaultStyle === 'Visual') {
+      setSelectedStyle('Visual');
+    } else if (userDefaultStyle === 'Kinesthetic') {
+      setSelectedStyle('Kinesthetic');
     } else {
-      alert("Error: User does not have a learning style");
-      setSelectedStyle("");
+      alert('Error: User does not have a learning style');
+      setSelectedStyle('');
     }
   };
   // Proceed with processing course data
   const processCourseData = async () => {
     if (!currentCourse) {
-      console.warn("No course data available.");
+      console.warn('No course data available.');
       return;
     }
-    // Set state variables based on the fetched course data
-    console.log(currentCourse);
-    setVideoData(currentCourse.courseLectureRecordings);
-    setPdfData(currentCourse.courseLectures);
-    setTasks(currentCourse.courseSections);
-    setImageData(currentCourse.courseVisuals);
 
     // Create video object with title and link
-    const videoObject = await createVideoObject();
-    setVideoData(videoObject);
+    setVideoData(await createVideoObject(currentCourse.courseLectureRecordings));
 
     // Create PDF object with title and pdf
-    const pdfObject = createPdfObject();
-    setPdfData(pdfObject);
+    setPdfData(createPdfObject(currentCourse.courseLectures));
 
     // Create task object with title, pdf, and status (boolean)
-    const taskObject = createTaskObject();
-    setTasks(taskObject);
+    setTasks(createTaskObject(currentCourse.courseSections));
 
     //create image object with title and image source
-    const imgObject = createImageObject();
-    setImageData(imgObject);
+    setImageData(createImageObject(currentCourse.courseVisuals));
 
     // Set loading to false once all data is processed
     setLoading(false);
   };
 
   ///////////////////////////////////////////////////BACKEND STOP/////////////////////////////////////////////////////
-  const videoUrl =
-    "https://www.youtube.com/watch?v=yqtdtCCWBzY&list=PLGZ7eihNHo7yy0au7Mpz8GP2sc79wVfmX&index=4";
-  const pdfFile =
-    "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+  const videoUrl = 'https://www.youtube.com/watch?v=yqtdtCCWBzY&list=PLGZ7eihNHo7yy0au7Mpz8GP2sc79wVfmX&index=4';
+  const pdfFile = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
 
   // const audiofile =
   //   "C:/Users/user/Desktop/grad project/Louis Armstrong - What A Wonderful World (Official Video).mp3";
 
   const courseContent = (() => {
     switch (selectedStyle) {
-      case "Auditory":
+      case 'Auditory':
         return videoData.map((video, index) => ({
           label: `item Recording ${index + 1}`,
-          link: `#${video.link}`,
+          link: `${video.link}`,
         }));
-      case "Read/Write":
+      case 'Read/Write':
         return pdfData.map((pdf, index) => ({
           label: `item ${index + 1}`,
-          link: `#${pdf.link}`,
+          link: `${pdf.link}`,
         }));
-      case "Visual":
+      case 'Visual':
         return imageData.map((img, index) => ({
           label: `${img.title}`,
-          link: `#${img.link}`,
+          link: `${img.link}`,
         }));
-      case "Kinesthetic":
+      case 'Kinesthetic':
         return tasks.map((task, index) => ({
           label: `Task ${index + 1}`,
-          link: `#${task.link}`,
+          link: `${task.link}`,
         }));
       default:
         return [];
@@ -211,27 +197,16 @@ const CourseContent = () => {
             <p>Loading...</p>
           ) : (
             <>
-              {/* Pass handleMenuItemClick to CourseMenu */}
-
-              <CourseMenu
-                content={courseContent}
-                onSelectContentItem={handleMenuItemClick}
-              />
+              {console.log(courseContent)}
+              {/* Pass handleMenuItem<CourseMenu content={courseContent} onSelectContentItem={handleMenuItemClick} />Click to CourseMenu */}
+              {courseContent ? <CourseMenu content={courseContent} onClickHandler={handleMenuItemClick} /> : <div></div>}
 
               <div className="course-viewer">
                 {/* Render components based on selectedStyle and selectedContentItem */}
-                {selectedStyle === "Auditory" && selectedContentItem && (
-                  <VideoPlayer url={selectedContentItem.link} />
-                )}
-                {selectedStyle === "Read/Write" && selectedContentItem && (
-                  <CoursePDFViewer file={selectedContentItem.link} />
-                )}
-                {selectedStyle === "Visual" && selectedContentItem && (
-                  <GalleryGrid images={selectedContentItem.images} />
-                )}
-                {selectedStyle === "Kinesthetic" && selectedContentItem && (
-                  <TodoWrapper />
-                )}
+                {selectedStyle === 'Auditory' && selectedContentItem && <VideoPlayer url={selectedContentItem.link} />}
+                {selectedStyle === 'Read/Write' && selectedContentItem && <CoursePDFViewer file={selectedContentItem.link} />}
+                {selectedStyle === 'Visual' && selectedContentItem && <GalleryGrid images={selectedContentItem.images} />}
+                {selectedStyle === 'Kinesthetic' && selectedContentItem && <TodoWrapper />}
               </div>
 
               <LearningStylesBar onSelectStyle={handleStyleSelection} />

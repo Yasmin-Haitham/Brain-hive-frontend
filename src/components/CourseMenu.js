@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import "../CourseMenu.css";
+import React, { useState, useEffect } from 'react';
+import '../CourseMenu.css';
 
 // The CourseMenu component takes courseId as a prop to fetch the relevant course data
-const CourseMenu = ({ content, onSelectContentlecture }) => {
+const CourseMenu = ({ content, onClickHandler }) => {
   // State to keep track of whether the course menu is collapsed or expanded
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -32,13 +32,13 @@ const CourseMenu = ({ content, onSelectContentlecture }) => {
   //   // Call the fetchContent function
   //   fetchContent();
   // }, [courseId]); // The effect depends on courseId and will re-run if it changes
-
-  // Function to handle clicks on menu lectures, setting the active lecture lecture
-  const handleMenulectureClick = (lecture) => {
-    onSelectContentlecture(lecture);
+  const handleClick = (lecture) => {
+    // Call the passed function with parameters
+    onClickHandler(lecture);
   };
+  // Function to handle clicks on menu lectures, setting the active lecture lecture
   const CourseMenu = ({ content = [], onSelectContentlecture }) => {
-    console.log("content in CourseMenu:", content);
+    console.log('content in CourseMenu:', content);
     // ... existing logic
   };
   // Function to toggle the collapsed state of the menu
@@ -77,15 +77,15 @@ const CourseMenu = ({ content, onSelectContentlecture }) => {
 
   // The component returns a div that contains the course menu and the content area
   return (
-    <div className={`course-menu ${isCollapsed ? "collapsed" : ""}`}>
+    <div className={`course-menu ${isCollapsed ? 'collapsed' : ''}`}>
       {/* Button to toggle the menu's collapsed state */}
-      <button className='menu-toggle' onClick={toggleMenu}>
+      <button className="menu-toggle" onClick={toggleMenu}>
         {/* Text of the button changes based on whether the menu is collapsed or expanded */}
-        {isCollapsed ? "►" : "◄"}
+        {isCollapsed ? '►' : '◄'}
       </button>
 
       {/* Menu content area, visibility is controlled by the isCollapsed state */}
-      <div className={`menu-content ${isCollapsed ? "hidden" : ""}`}>
+      <div className={`menu-content ${isCollapsed ? 'hidden' : ''}`}>
         {/* List of course lectures rendered as buttons */}
         <ul>
           {content.map((lecture, index) => (
@@ -95,10 +95,10 @@ const CourseMenu = ({ content, onSelectContentlecture }) => {
             // It's a numerical index starting from 0 for the first element in the array.
             // Map each lecture to a list lecture with a button
             <li key={index}>
-              <button onClick={() => handleMenulectureClick(lecture)}>
+              <button onClick={() => handleClick(lecture)}>
                 {/* The button's text is the title of the lecture */}
-                {lecture.fields.title}
-                {/* {lecture.label} */}
+                {/* {lecture.title} */}
+                {lecture.label}
               </button>
             </li>
           ))}
