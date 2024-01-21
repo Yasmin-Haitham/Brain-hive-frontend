@@ -70,31 +70,29 @@ const CourseContent = () => {
     return imageObject;
   };
  
-  useEffect(()=>{
+  
+  useEffect(() => {
+    setLoading(true);
     try {
       const result = fetchUserData()
       console.log( result);
       setUserDataLearningStyle();
       setUserSet(true)
-      return result
+      
     } catch (error) {
       console.log(error);
     }
-  },[userSet])
-  console.log(userSet);
-  useEffect(() => {
-    setLoading(true);
     try {
       const result = fetchData();
       console.log("Data Fetched");
-      return result;
+      
     } catch {
       alert(`Error: No course found for ID ${courseId}`);
       setLoading(false);
     }
     processCourseData();
     setLoading(false);
-  }, [courseId]);
+  }, [courseId, userSet]);
 
   const fetchUserData = async ()=>{
     return await Promise.resolve(api.getUser(setUserData, setLoading))
@@ -107,7 +105,7 @@ const CourseContent = () => {
   const setUserDataLearningStyle = () => {
     if (!userData) {
       // Handle the case where userData is null
-      alert("Error: User data not available");
+      console.log("Error: User data not available");
       return;
     }
 
@@ -128,6 +126,10 @@ const CourseContent = () => {
   };
   // Proceed with processing course data
   const processCourseData = async () => {
+    if (!currentCourse) {
+      console.warn("No course data available.");
+      return;
+    }
     // Set state variables based on the fetched course data
     console.log(currentCourse);
     setVideoData(currentCourse.courseLectureRecordings);
