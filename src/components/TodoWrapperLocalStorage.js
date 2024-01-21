@@ -53,7 +53,7 @@ export const TodoWrapperLocalStorage = () => {
   };
   return (
     <div className="TodoWrapper">
-      <h1>Get Things Done!</h1>
+      <h1 className="todo-h1">Get Things Done!</h1>
       <TodoForm addTodo={addTodo} />
       {todos.map((todo, index) =>
         todo.isEditing ? (
