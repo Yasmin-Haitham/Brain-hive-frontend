@@ -94,12 +94,13 @@ const CourseContent = () => {
     setLoading(false);
   }, [courseId, userSet]);
 
-  const fetchUserData = async ()=>{
-    return await Promise.resolve(api.getUser(setUserData, setLoading))
+  const fetchUserData =  ()=>{
+    return (api.getUser(setUserData, setLoading))
   }
-  const fetchData = async() => {
+  const fetchData = () => {
     // Fetch course data from the server
-    const result = await Promise.resolve(api.getOneCourse(courseId, setCurrentCourse, setAPI_KEY));
+    const result = api.getOneCourse(courseId, setCurrentCourse, setAPI_KEY);
+    console.log(result)
     return result
   };
   const setUserDataLearningStyle = () => {
