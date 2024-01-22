@@ -72,7 +72,7 @@ const CourseContent = () => {
   const createImageObject = (imageData) => {
     const imageObject = imageData.map((item) => ({
       title: item.fields.title,
-      imgSrc: item.fields.file.url,
+      link: item.fields.file.url,
     }));
     return imageObject;
   };
@@ -249,10 +249,10 @@ const CourseContent = () => {
                   <CoursePDFViewer file={selectedContentItem.link} />
                 )}
                 {selectedStyle === "Visual" && selectedContentItem && (
-                  <GalleryGrid images={selectedContentItem.images} />
+                  <GalleryGrid images={selectedContentItem.link} />
                 )}
                 {selectedStyle === "Kinesthetic" && selectedContentItem && (
-                  <TodoWrapper />
+                  <TodoWrapper tasks={selectedContentItem}/>
                 )}
               </div>
 

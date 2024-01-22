@@ -7,10 +7,10 @@ import logo from "../images/logo.png";
 
 const images = [logo];
 
-const GalleryGrid = ({src}) => {
+const GalleryGrid = ({images}) => {
   return (
     <div className='image-container'>
-      <img src={logo} />
+      <img src={images} />
     </div>
   );
 };
