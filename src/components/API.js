@@ -53,21 +53,22 @@ const getOneCourse = async (id, setCourseSet, setCurrentCourse, setAPI_KEY) => {
     });
 };
 
-const extractYouTubeTitle = async (url, API_KEY) => {
+const extractYouTubeTitle = async (url) => {
   // Extract video ID from the YouTube URL
-  const videoId = url.split('v=')[1];
+  const videoId = url.match(/(?:youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*)/)[1];
+  console.log(videoId);
 
-  // Make a request to the YouTube Data API to fetch video details
-  await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${API_KEY}&part=snippet`)
-    .then((response) => response.json())
-    .then((data) => {
-      const title = data.items[0].snippet.title;
-      console.log(title); // Output the video title
-      return title;
-    })
-    .catch((error) => {
-      console.error('Error fetching video details:', error);
-    });
+  try {
+    // Make a request to the YouTube Data API to fetch video details
+    const response = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`);
+    const data = await response.json();
+    const title = data.title;
+    console.log(title); // Output the video title
+    return title;
+  } catch (error) {
+    console.error('Error fetching video details:', error);
+    throw error; // Rethrow the error to be caught in the calling function
+  }
 };
 
 export { getUser, getCourses, getProfileCourses, getOneCourse, extractYouTubeTitle };

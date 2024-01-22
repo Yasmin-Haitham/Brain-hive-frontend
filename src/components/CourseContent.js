@@ -33,15 +33,22 @@ const CourseContent = () => {
     setSelectedContentItem(selecteditem);
   };
   const createVideoObject = async (videoData) => {
-    const titlesPromises = videoData.map(async (item) => {
-      const title = await api.extractYouTubeTitle(item, API_KEY);
-      return { title: title, link: item };
-    });
+    try {
+      // Use Promise.all to wait for all asynchronous operations to complete
+      const titles = await Promise.all(videoData.map(api.extractYouTubeTitle));
 
-    // Wait for all promises to resolve
-    const videoObjects = await Promise.all(titlesPromises);
-
-    return videoObjects;
+      // Now, titles contains an array of video titles corresponding to videoData
+      const videoObject = videoData.map((item, index) => ({
+        title: titles[index],
+        link: item,
+      }));
+      console.log(videoObject);
+      return videoObject;
+    } catch (error) {
+      // Handle errors here, if needed
+      console.error("Error creating video object:", error);
+      throw error; // Rethrow the error to be caught in the calling function
+    }
   };
 
   const createPdfObject = (pdfData) => {
@@ -86,6 +93,15 @@ const CourseContent = () => {
         fetchData();
       } else {
         processCourseData();
+        if (selectedStyle === "Auditory") {
+          setSelectedContentItem(videoData[0]);
+        } else if (selectedStyle === "Read/Write") {
+          setSelectedContentItem(pdfData[0]);
+        } else if (selectedStyle === "Visual") {
+          setSelectedContentItem(imageData[0]);
+        } else if (selectedStyle === "Kinesthetic") {
+          setSelectedContentItem(tasks[0]);
+        }
       }
     } catch (e) {
       alert(`Error: No course found for ID ${e}`);
@@ -166,12 +182,12 @@ const CourseContent = () => {
     switch (selectedStyle) {
       case "Auditory":
         return videoData.map((video, index) => ({
-          label: `item Recording ${index + 1}`,
+          label: `${video.title}`,
           link: `${video.link}`,
         }));
       case "Read/Write":
         return pdfData.map((pdf, index) => ({
-          label: `item ${index + 1}`,
+          label: `${pdf.title}`,
           link: `${pdf.link}`,
         }));
       case "Visual":
@@ -193,8 +209,15 @@ const CourseContent = () => {
 
   const handleStyleSelection = (style) => {
     setSelectedStyle(style);
-    // Reset the selected content item when the style changes
-    setSelectedContentItem(null);
+    if (style === "Auditory") {
+      setSelectedContentItem(videoData[0]);
+    } else if (style === "Read/Write") {
+      setSelectedContentItem(pdfData[0]);
+    } else if (style === "Visual") {
+      setSelectedContentItem(imageData[0]);
+    } else if (style === "Kinesthetic") {
+      setSelectedContentItem(tasks[0]);
+    }
   };
 
   return (
