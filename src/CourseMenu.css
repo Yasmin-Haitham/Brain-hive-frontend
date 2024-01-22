@@ -30,6 +30,11 @@
     margin-top: 40px;
     /* padding: 10px; */
     }
+    .menuitem{
+        border: none;
+        background-color: #33333300;
+        color: #d0a13c;
+    }
     
     .menu-content ul {
     list-style: none; /* Remove list bullets */
