@@ -1,0 +1,28 @@
+.pdfContainer {
+    width: 70%;             /* Adjust the width as needed */
+    height: 75vh;           /* Adjust the height as needed */
+    margin: auto;           /* Centers the container horizontally */
+    display: flex;          /* Enables flexbox */
+    justify-content: center;/* Centers content horizontally in the flex container */
+    /* align-items: center;    Centers content vertically in the flex container */
+    padding: 20px;          
+    border: 1px solid #ddd; /* A light border for the container */
+    border-radius: 5px;     /* Rounds the corners of the border */
+    background-color: #fff; /* Background color for the container */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+    overflow: auto;         /* Ensures the content is neatly contained */
+  }
+  
+  /* Styles for the Document and Page components, if needed */
+  .Document {
+    display: flex;
+    justify-content: center; /* Centers the document horizontally */
+    align-items: center;     /* Centers the document vertically */
+    padding: 10px;
+  }
+  
+  .Page {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adds a shadow to each page */
+    margin-bottom: 20px; 
+  }
+  

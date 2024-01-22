@@ -15,10 +15,12 @@
   }
   
   .course-viewer {
-  flex-grow: 1;
+  flex-grow:1;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 90px;
+  margin-right: 90px;
   /* overflow-y: auto;  */
   /* width: 50px; */
   }
