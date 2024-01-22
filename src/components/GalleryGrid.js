@@ -6,16 +6,12 @@ import logo from "../images/logo.png";
 
 // ... import other images
 
-const images = [logo, logo, logo, logo, logo, logo, logo, logo, logo, logo, logo, logo, logo, logo /*, other images */];
+const images = [logo];
 
 const GalleryGrid = () => {
   return (
-    <div className='gallery-containers'>
-      {images.map((image, index) => (
-        <div key={index} className='gallery-item'>
-          <img src={image} alt={`Infographic ${index + 1}`}  className="infographic"/>
-        </div>
-      ))}
+    <div className='image-container'>
+      <img src={logo} />
     </div>
   );
 };

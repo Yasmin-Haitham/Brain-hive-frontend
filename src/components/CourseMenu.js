@@ -44,7 +44,7 @@ const CourseMenu = ({ content, onClickHandler }) => {
                
                 {lecture.label}
               </button>
-              <hr/>
+              <hr/>g
             </li>
           ))}
         </ul>
