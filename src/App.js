@@ -14,7 +14,7 @@ import QuizPage from "./components/QuizPage";
 import ProfilePage from "./components/ProfilePage";
 import Courses from "./components/Courses";
 import CourseContent from "./components/CourseContent";
-import Todolist from "./components/Todolist";
+// import Todolist from "./components/Todolist";
 import GalleryGrid from "./components/GalleryGrid";
 import CourseMenu from "./components/CourseMenu";
 import { TodoWrapper } from "./components/TodoWrapper";

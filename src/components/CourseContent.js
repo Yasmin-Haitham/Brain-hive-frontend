@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import NavbarComponent from './NavbarComponent';
-import styles from '../VideoPlayer.module.css';
-import CourseHeader from './CourseHeader.js';
-import LearningStylesBar from './learningstylesbar.js';
-import VideoPlayer from './VideoPlayer.js'; //Auditory
-import CoursePDFViewer from './CoursePDFViewer.js'; // Read/Write
-import GalleryGrid from './GalleryGrid.js'; // Visual
-import Todolist from './Todolist.js'; // kinesthetic
-import CourseMenu from './CourseMenu.js';
-import '../CourseContent.css';
-import { TodoWrapper } from './TodoWrapper.js';
-import * as api from './API.js';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import NavbarComponent from "./NavbarComponent";
+import styles from "../VideoPlayer.module.css";
+import CourseHeader from "./CourseHeader.js";
+import LearningStylesBar from "./learningstylesbar.js";
+import VideoPlayer from "./VideoPlayer.js"; //Auditory
+import CoursePDFViewer from "./CoursePDFViewer.js"; // Read/Write
+import GalleryGrid from "./GalleryGrid.js"; // Visual
+// import Todolist from './Todolist.js'; // kinesthetic
+import CourseMenu from "./CourseMenu.js";
+import "../CourseContent.css";
+import { TodoWrapper } from "./TodoWrapper.js";
+import * as api from "./API.js";
 
 const CourseContent = () => {
   ///////////////////////////////////////////////////BACKEND/////////////////////////////////////////////////////
@@ -24,7 +24,7 @@ const CourseContent = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentCourse, setCurrentCourse] = useState(null);
-  const [API_KEY, setAPI_KEY] = useState('');
+  const [API_KEY, setAPI_KEY] = useState("");
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [userSet, setUserSet] = useState(false);
   const [courseSet, setCourseSet] = useState(false);
@@ -99,39 +99,46 @@ const CourseContent = () => {
   };
   const fetchData = async () => {
     // Fetch course data from the server
-    await api.getOneCourse(courseId, setCourseSet, setCurrentCourse, setAPI_KEY);
+    await api.getOneCourse(
+      courseId,
+      setCourseSet,
+      setCurrentCourse,
+      setAPI_KEY
+    );
   };
   const setUserDataLearningStyle = () => {
     if (!userData) {
       // Handle the case where userData is null
-      console.log('Error: User data not available');
+      console.log("Error: User data not available");
       return;
     }
 
     const userDefaultStyle = userData.LearningStyle;
     console.log(userDefaultStyle);
-    if (userDefaultStyle === 'Auditory') {
-      setSelectedStyle('Auditory');
-    } else if (userDefaultStyle === 'ReadWrite') {
-      setSelectedStyle('Read/Write');
-    } else if (userDefaultStyle === 'Visual') {
-      setSelectedStyle('Visual');
-    } else if (userDefaultStyle === 'Kinesthetic') {
-      setSelectedStyle('Kinesthetic');
+    if (userDefaultStyle === "Auditory") {
+      setSelectedStyle("Auditory");
+    } else if (userDefaultStyle === "ReadWrite") {
+      setSelectedStyle("Read/Write");
+    } else if (userDefaultStyle === "Visual") {
+      setSelectedStyle("Visual");
+    } else if (userDefaultStyle === "Kinesthetic") {
+      setSelectedStyle("Kinesthetic");
     } else {
-      alert('Error: User does not have a learning style');
-      setSelectedStyle('');
+      alert("Error: User does not have a learning style");
+      setSelectedStyle("");
     }
   };
   // Proceed with processing course data
   const processCourseData = async () => {
     if (!currentCourse) {
-      console.warn('No course data available.');
+      console.warn("No course data available.");
       return;
     }
 
     // Create video object with title and link
-    setVideoData(await createVideoObject(currentCourse.courseLectureRecordings));
+    setVideoData(
+      await createVideoObject(currentCourse.courseLectureRecordings)
+    );
 
     // Create PDF object with title and pdf
     setPdfData(createPdfObject(currentCourse.courseLectures));
@@ -147,30 +154,32 @@ const CourseContent = () => {
   };
 
   ///////////////////////////////////////////////////BACKEND STOP/////////////////////////////////////////////////////
-  const videoUrl = 'https://www.youtube.com/watch?v=yqtdtCCWBzY&list=PLGZ7eihNHo7yy0au7Mpz8GP2sc79wVfmX&index=4';
-  const pdfFile = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+  const videoUrl =
+    "https://www.youtube.com/watch?v=yqtdtCCWBzY&list=PLGZ7eihNHo7yy0au7Mpz8GP2sc79wVfmX&index=4";
+  const pdfFile =
+    "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
 
   // const audiofile =
   //   "C:/Users/user/Desktop/grad project/Louis Armstrong - What A Wonderful World (Official Video).mp3";
 
   const courseContent = (() => {
     switch (selectedStyle) {
-      case 'Auditory':
+      case "Auditory":
         return videoData.map((video, index) => ({
           label: `item Recording ${index + 1}`,
           link: `${video.link}`,
         }));
-      case 'Read/Write':
+      case "Read/Write":
         return pdfData.map((pdf, index) => ({
           label: `item ${index + 1}`,
           link: `${pdf.link}`,
         }));
-      case 'Visual':
+      case "Visual":
         return imageData.map((img, index) => ({
           label: `${img.title}`,
           link: `${img.link}`,
         }));
-      case 'Kinesthetic':
+      case "Kinesthetic":
         return tasks.map((task, index) => ({
           label: `Task ${index + 1}`,
           link: `${task.link}`,
@@ -199,14 +208,29 @@ const CourseContent = () => {
             <>
               {console.log(courseContent)}
               {/* Pass handleMenuItem<CourseMenu content={courseContent} onSelectContentItem={handleMenuItemClick} />Click to CourseMenu */}
-              {courseContent ? <CourseMenu content={courseContent} onClickHandler={handleMenuItemClick} /> : <div></div>}
+              {courseContent ? (
+                <CourseMenu
+                  content={courseContent}
+                  onClickHandler={handleMenuItemClick}
+                />
+              ) : (
+                <div></div>
+              )}
 
               <div className="course-viewer">
                 {/* Render components based on selectedStyle and selectedContentItem */}
-                {selectedStyle === 'Auditory' && selectedContentItem && <VideoPlayer url={selectedContentItem.link} />}
-                {selectedStyle === 'Read/Write' && selectedContentItem && <CoursePDFViewer file={selectedContentItem.link} />}
-                {selectedStyle === 'Visual' && selectedContentItem && <GalleryGrid images={selectedContentItem.images} />}
-                {selectedStyle === 'Kinesthetic' && selectedContentItem && <TodoWrapper />}
+                {selectedStyle === "Auditory" && selectedContentItem && (
+                  <VideoPlayer url={selectedContentItem.link} />
+                )}
+                {selectedStyle === "Read/Write" && selectedContentItem && (
+                  <CoursePDFViewer file={selectedContentItem.link} />
+                )}
+                {selectedStyle === "Visual" && selectedContentItem && (
+                  <GalleryGrid images={selectedContentItem.images} />
+                )}
+                {selectedStyle === "Kinesthetic" && selectedContentItem && (
+                  <TodoWrapper />
+                )}
               </div>
 
               <LearningStylesBar onSelectStyle={handleStyleSelection} />

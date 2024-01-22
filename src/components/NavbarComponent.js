@@ -34,36 +34,39 @@ function NavbarComponent() {
 
   return (
     <Navbar
-      expand='lg'
-      className='bg-body-tertiary'
-      bg='dark'
-      data-bs-theme='dark'
-      style={{ width: "100%" }}>
+      expand="lg"
+      className="bg-body-tertiary"
+      bg="dark"
+      data-bs-theme="dark"
+      style={{ width: "100%" }}
+    >
       <Container>
-        <Navbar.Brand href='Home'>
-          <img className='logo' src={logo} alt='logo' />
+        <Navbar.Brand href="Home">
+          <img className="logo" src={logo} alt="logo" />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls='navbarScroll' />
-        <Navbar.Collapse id='navbarScroll'>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
           <Nav
-            className='me-auto my-2 my-lg-0'
+            className="me-auto my-2 my-lg-0"
             style={{ maxHeight: "100px" }}
-            navbarScroll>
-            <Nav.Link href='Home'>Home</Nav.Link>
-            <Nav.Link href='ProfilePage'>Profile</Nav.Link>
-            <Nav.Link href='Courses'>Courses</Nav.Link>
+            navbarScroll
+          >
+            <Nav.Link href="/Home">Home</Nav.Link>
+            <Nav.Link href="/ProfilePage">Profile</Nav.Link>
+            <Nav.Link href="/Courses">Courses</Nav.Link>
             <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
           </Nav>
-          <Form className='d-flex'>
+          <Form className="d-flex">
             <Form.Control
-              type='search'
-              placeholder='Search'
-              className='me-2'
-              aria-label='Search'
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              aria-label="Search"
             />
             <Button
-              variant='outline-success'
-              style={{ marginBottom: "15px", marginLeft: "15px" }}>
+              variant="outline-success"
+              style={{ marginBottom: "15px", marginLeft: "15px" }}
+            >
               Search
             </Button>
           </Form>
