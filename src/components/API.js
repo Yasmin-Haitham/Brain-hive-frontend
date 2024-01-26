@@ -1,9 +1,11 @@
 import axios from 'axios';
+const API_BASE_URL = 'http://localhost:3030';
+/********************************************User API Start*********************************************************/
 
 // Fetch user data from the server
-const getUser = async (setUserData, setUserSet, setLoading) => {
+export const getUser = async (setUserData, setUserSet, setLoading) => {
   await axios
-    .get('http://localhost:3030/user/profile', { withCredentials: true })
+    .get(`${API_BASE_URL}/user/profile`, { withCredentials: true })
     .then((res) => {
       setUserData(res.data);
       setUserSet(true);
@@ -16,21 +18,24 @@ const getUser = async (setUserData, setUserSet, setLoading) => {
     });
 };
 
+/********************************************User API End**********************************************************/
+
+/********************************************Course API Start******************************************************/
 // Fetch all courses from contentful
-const getCourses = async (setCards) => {
+export const getCourses = async (setCards) => {
   await axios
-    .get('http://localhost:3030/courses')
+    .get(`${API_BASE_URL}/courses`)
     .then((res) => setCards(res.data))
     .catch((error) => console.error('Error fetching data from Contentful:', error));
 };
 
 //Fetch specific courses from contentful
-const getProfileCourses = async (userCoursesArray, setCourses, setError) => {
+export const getProfileCourses = async (userCoursesArray, setCourses, setError) => {
   // Extract course names from the array of objects
   const courseNames = userCoursesArray.map((course) => course.courseName);
 
   await axios
-    .get('http://localhost:3030/courses/profileCourses', {
+    .get(`${API_BASE_URL}/courses/profileCourses`, {
       params: { userCourses: courseNames },
     })
     .then((res) => setCourses(res.data))
@@ -38,9 +43,9 @@ const getProfileCourses = async (userCoursesArray, setCourses, setError) => {
 };
 
 //Fetch certain course and all its content
-const getOneCourse = async (id, setCourseSet, setCurrentCourse, setAPI_KEY) => {
+export const getOneCourse = async (id, setCourseSet, setCurrentCourse, setAPI_KEY) => {
   await axios
-    .get('http://localhost:3030/courses/content', {
+    .get(`${API_BASE_URL}/courses/content`, {
       params: { id: id },
     })
     .then((res) => {
@@ -53,7 +58,7 @@ const getOneCourse = async (id, setCourseSet, setCurrentCourse, setAPI_KEY) => {
     });
 };
 
-const extractYouTubeTitle = async (url) => {
+export const extractYouTubeTitle = async (url) => {
   // Extract video ID from the YouTube URL
   const videoId = url.match(/(?:youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*)/)[1];
   console.log(videoId);
@@ -71,4 +76,63 @@ const extractYouTubeTitle = async (url) => {
   }
 };
 
-export { getUser, getCourses, getProfileCourses, getOneCourse, extractYouTubeTitle };
+/********************************************Course API End*******************************************************/
+
+/********************************************Todo API Start*******************************************************/
+// Function to fetch all todos
+export const getAllTodos = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/todos`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching todos:', error);
+    throw error;
+  }
+};
+
+// Function to add a new todo
+export const addTodo = async (title, userId) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/todos`, { title, createdBy: userId });
+    return response.data;
+  } catch (error) {
+    console.error('Error adding todo:', error);
+    throw error;
+  }
+};
+
+// Function to delete a todo
+export const deleteTodo = async (id) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/todos/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting todo:', error);
+    throw error;
+  }
+};
+
+// Function to toggle completion of a todo
+export const toggleTodoCompletion = async (id) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/todos/${id}/toggle`);
+    return response.data;
+  } catch (error) {
+    console.error('Error toggling todo completion:', error);
+    throw error;
+  }
+};
+
+// Function to update a todo's task
+export const updateTodo = async (id, title) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/todos/${id}`, { title });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating todo:', error);
+    throw error;
+  }
+};
+/********************************************Todo API End*********************************************************/
+
+export * from "./API";

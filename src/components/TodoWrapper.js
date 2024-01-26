@@ -1,43 +1,78 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Todo } from "./Todo";
 import { TodoForm } from "./TodoForm";
-import { v4 as uuidv4 } from "uuid";
 import { EditTodoForm } from "./EditTodoForm";
+import * as api from "./API";
 import "../Todo.css";
+
+
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState([]);
 
-  const addTodo = (todo) => {
-    setTodos([
-      ...todos,
-      { id: uuidv4(), task: todo, completed: false, isEditing: false },
-    ]);
+  useEffect(() => {
+    // Fetch all todos on component mount
+    fetchTodos();
+  }, []);
+
+  const fetchTodos = async () => {
+    try {
+      const todosData = await api.getAllTodos();
+      setTodos(todosData);
+    } catch (error) {
+      console.error("Error fetching todos:", error);
+    }
   };
 
-  const deleteTodo = (id) => setTodos(todos.filter((todo) => todo.id !== id));
+  const addTodo = async (todo) => {
+    try {
+      const newTodo = await api.addTodo(todo);
+      setTodos([...todos, newTodo]);
+    } catch (error) {
+      console.error("Error adding todo:", error);
+    }
+  };
 
-  const toggleComplete = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
+  const deleteTodo = async (id) => {
+    try {
+      await api.deleteTodo(id);
+      setTodos(todos.filter((todo) => todo._id !== id));
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+    }
+  };
+
+  const toggleComplete = async (id) => {
+    try {
+      await api.toggleTodoCompletion(id);
+      setTodos(
+        todos.map((todo) =>
+          todo._id === id ? { ...todo, completed: !todo.completed } : todo
+        )
+      );
+    } catch (error) {
+      console.error("Error toggling todo completion:", error);
+    }
   };
 
   const editTodo = (id) => {
     setTodos(
       todos.map((todo) =>
-        todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
+        todo._id === id ? { ...todo, isEditing: !todo.isEditing } : todo
       )
     );
   };
 
-  const editTask = (task, id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
-      )
-    );
+  const editTask = async (task, id) => {
+    try {
+      await api.updateTodo(id, task);
+      setTodos(
+        todos.map((todo) =>
+          todo._id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
+        )
+      );
+    } catch (error) {
+      console.error("Error updating todo:", error);
+    }
   };
 
   return (
