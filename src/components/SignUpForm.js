@@ -11,10 +11,10 @@ import axios from "axios";
 function SignUpForm({ onSignUpClick }) {
   // backend link **************************************
   const specializations = [
-    "Software Engineering",
-    "Data Science",
-    "Cybersecurity",
-    "UI/UX Design",
+    "software-engineering",
+    "data-science",
+    "cybersecurity",
+    "uiux-design",
     // Add more specializations here
   ];
   const onSubmit = (values) => {
