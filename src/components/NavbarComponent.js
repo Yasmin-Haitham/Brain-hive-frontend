@@ -10,7 +10,7 @@ import "../components/ProfilePage";
 import "../components/Home";
 import "../components/Courses";
 import axios from "axios";
-
+import PomodoroTimer from "./Timer";
 function NavbarComponent() {
   const handleLogout = () => {
     // Make an Axios request to log the user out
@@ -56,6 +56,7 @@ function NavbarComponent() {
             <Nav.Link href="/Courses">Courses</Nav.Link>
             <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
           </Nav>
+          <PomodoroTimer />
           <Form className="d-flex">
             <Form.Control
               type="search"

@@ -7,10 +7,11 @@ import LearningStylesBar from "./learningstylesbar.js";
 import VideoPlayer from "./VideoPlayer.js"; //Auditory
 import CoursePDFViewer from "./CoursePDFViewer.js"; // Read/Write
 import GalleryGrid from "./GalleryGrid.js"; // Visual
-// import Todolist from './Todolist.js'; // kinesthetic
+
 import CourseMenu from "./CourseMenu.js";
 import "../CourseContent.css";
-import { TodoWrapper } from "./TodoWrapper.js";
+
+import TodoFinal from "./TodoFinal.js";
 import * as api from "./API.js";
 
 const CourseContent = () => {
@@ -223,8 +224,8 @@ const CourseContent = () => {
   return (
     <div>
       <NavbarComponent />
-      <div className="course-content-container">
-        <div className="course-layout">
+      <div className='course-content-container'>
+        <div className='course-layout'>
           {loading ? (
             <p>Loading...</p>
           ) : (
@@ -240,7 +241,7 @@ const CourseContent = () => {
                 <div></div>
               )}
 
-              <div className="course-viewer">
+              <div className='course-viewer'>
                 {/* Render components based on selectedStyle and selectedContentItem */}
                 {selectedStyle === "Auditory" && selectedContentItem && (
                   <VideoPlayer url={selectedContentItem.link} />
@@ -252,7 +253,7 @@ const CourseContent = () => {
                   <GalleryGrid images={selectedContentItem.link} />
                 )}
                 {selectedStyle === "Kinesthetic" && selectedContentItem && (
-                  <TodoWrapper tasks={selectedContentItem}/>
+                  <TodoFinal tasks={selectedContentItem} />
                 )}
               </div>
 

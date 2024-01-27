@@ -1,64 +1,79 @@
 import React, { useState, useEffect } from "react";
-import * as Api from "./API";
+import axios from "axios";
 import "../Feed.css";
-import viking from "../images/viking.jpg";
-import post from "../images/post.jpg";
+import * as api from "./API";
 
-function Feed() {
+function CoursesFeed(props) {
+  const { courseName, description, comment, image, courseId } = props;
   const [userData, setUserData] = useState(null);
   const [userSet, setUserSet] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // Fetch user data when the component mounts
   useEffect(() => {
-    Api.getUser(setUserData, setUserSet, setLoading);
+    api.getUser(setUserData, setUserSet, setLoading);
   }, []);
+
+  function isEnrolled() {
+    if (userData != null) {
+      console.log(userData);
+      if (userData.enrolledCourses) {
+        console.log(userData.enrolledCourses);
+        return userData.enrolledCourses.some(function (course) {
+          return course.courseName === courseName;
+        });
+      }
+      return false;
+    }
+    return false;
+  }
+
+  const handleButtonClick = async () => {
+    try {
+      // Check if the course is already enrolled
+      if (isEnrolled()) {
+        // redirect to course content
+        window.location.replace(`/CourseContent/${courseId}`);
+        return true;
+      } else {
+        // Enroll in the course
+        const response = await axios.post(
+          "http://localhost:3030/courses/enroll",
+          { courseName: courseName, courseId: courseId },
+          { withCredentials: true }
+        );
+        console.log(response.data); // Log the response if needed
+
+        // Update the user data after enrolling
+        api.getUser(setUserData, setUserSet, setLoading);
+      }
+    } catch (error) {
+      console.error("Error handling the button click:", error);
+    }
+  };
 
   return (
     <div className='Feed'>
-      <div className='Feed-header'>
-        {loading ? (
-          <p>Loading user data...</p>
-        ) : userData ? (
-          <>
-            {userData.ProfilePicturePath ? (
-              <img
-                src={
-                  process.env.PUBLIC_URL + `/${userData.ProfilePicturePath}.png`
-                }
-                className='Feed-profile-pic'
-                alt='Profile'
-              />
-            ) : (
-              <p>No profile picture available</p>
-            )}
-            <div className='Feed-user-info'>
-              {userData.Name ? (
-                <h3 className='Feed-user-name'>{userData.Name}</h3>
-              ) : (
-                <p>No user name available</p>
-              )}
-              <p className='Feed-post-date'>October 10, 2023</p>
-            </div>
-          </>
-        ) : (
-          <p>No course data available</p>
-        )}
+      <div className='CoursesFeed-header'>
+        <div className='CoursesFeed-user-info'>
+          <h3 className='CoursesFeed-user-name'>{courseName}</h3>
+          {isEnrolled() && (
+            <div style={{ color: "green", marginLeft: "10px" }}>Enrolled</div>
+          )}
+        </div>
       </div>
-      <div className='Feed-content'>
-        <p className='Feed-post-description'>
-          Here will be the description of the offered course posted in the feed,
-          including the type of learning used in this course.
-        </p>
-        <img className='Feed-post-image' src={post} alt='Post Image' />
-        <div className='Feed-buttons'>
-          {/* <button className="Feed-comment-button">Comment</button> */}
-          <div style={{ marginTop: "5px", fontSize: "30px" }}>{"|"}</div>
-          <button className='Feed-start-course-button'>Start Course</button>
+      <div className='CoursesFeed-content'>
+        <p className='CoursesFeed-post-description'>{description}</p>
+        <img className='CoursesFeed-post-image' src={image} alt='Post Image' />
+        <div className='CoursesFeed-buttons'>
+          <button
+            className='CoursesFeed-start-course-button'
+            onClick={handleButtonClick}>
+            {isEnrolled() ? "View Course" : "Start Course"}
+          </button>
         </div>
       </div>
     </div>
   );
 }
 
-export default Feed;
+export default CoursesFeed;
