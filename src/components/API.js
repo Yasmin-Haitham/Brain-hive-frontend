@@ -27,6 +27,15 @@ export const addFriend = async (friendEmail) => {
   .catch((error) => console.error("Error adding friend:", error));
 };
 
+// get friends
+
+export const getFriends = async () => {
+  await axios
+.get(`${API_BASE_URL}/user/getFriends`, { withCredentials: true })
+.then((res) => console.log(res.data))
+.catch((error) => console.error("Error fetching friends:", error));
+};
+
 /********************************************User API End**********************************************************/
 
 /********************************************Course API Start******************************************************/
