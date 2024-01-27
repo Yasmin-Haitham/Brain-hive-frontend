@@ -18,6 +18,15 @@ export const getUser = async (setUserData, setUserSet, setLoading) => {
     });
 };
 
+// add friend
+
+export const addFriend = async (friendEmail) => {
+  await axios
+  .post(`${API_BASE_URL}/user/addFriend`, { friendEmail: friendEmail }, { withCredentials: true })
+  .then((res) => console.log(res.data))
+  .catch((error) => console.error("Error adding friend:", error));
+};
+
 /********************************************User API End**********************************************************/
 
 /********************************************Course API Start******************************************************/

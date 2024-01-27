@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../FriendListItem.css"; // Make sure this path matches your CSS file's location
 import logo from "../images/logo.png";
-import axios from "axios";
 import * as api from "./API";
 
 function FriendList({ friends, onAddFriend }) {

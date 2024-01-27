@@ -5,11 +5,6 @@ import "../CoursesProfile.css";
 import FriendList from "./FriendList";
 import * as api from "./API";
 function Friends() {
-  const navigate = useNavigate();
-
-  const handleClick = (courseId) => {
-    navigate(`/courses/${courseId}`);
-  };
 
   return (
     <div className='Friends-container'>

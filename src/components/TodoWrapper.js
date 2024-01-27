@@ -8,11 +8,14 @@ import "../Todo.css";
 
 export const TodoWrapper = () => {
   const [todos, setTodos] = useState([]);
+  const [todoAdded, setTodoAdded] = useState(false);
+  const userId = sessionStorage.getItem("userId")
 
   useEffect(() => {
     // Fetch all todos on component mount
     fetchTodos();
-  }, []);
+    setTodoAdded(false);
+  }, [todoAdded]);
 
   const fetchTodos = async () => {
     try {
@@ -25,12 +28,14 @@ export const TodoWrapper = () => {
 
   const addTodo = async (todo) => {
     try {
-      const newTodo = await api.addTodo(todo);
-      setTodos([...todos, newTodo]);
+      const newTodo = await api.addTodo(todo,userId);
+      console.log(newTodo);
+      setTodoAdded(true);
     } catch (error) {
       console.error("Error adding todo:", error);
     }
   };
+  
 
   const deleteTodo = async (id) => {
     try {
