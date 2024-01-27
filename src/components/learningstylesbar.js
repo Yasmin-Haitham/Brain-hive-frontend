@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import "../LearningStylesBar.css";
 
 const LearningStylesBar = ({ onSelectStyle }) => {
+  // State to keep track of the selected learning style
+  const [selectedStyle, setSelectedStyle] = useState(null);
+
+  const handleSelectStyle = (style) => {
+    setSelectedStyle(style); // Update the state
+    onSelectStyle(style); // Propagate the selection
+  };
+
   return (
     <div className='LearningStylesBar'>
-      <button className='nav-item' onClick={() => onSelectStyle("Auditory")}>
-        Auditory
-      </button>
-      <button className='nav-item' onClick={() => onSelectStyle("Visual")}>
-        Visual
-      </button>
-      <button className='nav-item' onClick={() => onSelectStyle("Read/Write")}>
-        Read/Write
-      </button>
-      <button className='nav-item' onClick={() => onSelectStyle("Kinesthetic")}>
-        Kinesthetic
-      </button>
+      {["Auditory", "Visual", "Read/Write", "Kinesthetic"].map((style) => (
+        <button
+          key={style}
+          className={`nav-item ${selectedStyle === style ? "selected" : ""}`}
+          onClick={() => handleSelectStyle(style)}>
+          {style}
+        </button>
+      ))}
     </div>
   );
 };

@@ -33,3 +33,8 @@
   border-radius: 5px; 
   text-decoration: underline;
 }
+.nav-item.selected {
+  background-color: #d0a13c; /* Highlight color */
+  color: #333; /* Text color for selected item */
+  border-radius: 5px;
+}

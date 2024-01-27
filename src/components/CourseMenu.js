@@ -5,15 +5,16 @@ import "../CourseMenu.css";
 const CourseMenu = ({ content, onClickHandler }) => {
   // State to keep track of whether the course menu is collapsed or expanded
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [selectedLecture, setSelectedLecture] = useState(null);
 
   const handleClick = (lecture) => {
-    // Call the passed function with parameters
+    // Call the passed functions with parameters
+    setSelectedLecture(lecture);
     onClickHandler(lecture);
   };
   // Function to handle clicks on menu lectures, setting the active lecture lecture
   const CourseMenu = ({ content = [], onSelectContentlecture }) => {
     console.log("content in CourseMenu:", content);
-    // ... existing logic
   };
   // Function to toggle the collapsed state of the menu
   const toggleMenu = () => {
@@ -34,17 +35,15 @@ const CourseMenu = ({ content, onClickHandler }) => {
         {/* List of course lectures rendered as buttons */}
         <ul>
           {content.map((lecture, index) => (
-            // lecture is the lecture which represent the current element being processed in the content
-            // index is the  array index of the current lecture within the content array.
-            //  It's provided by the .map() function as the second argument.
-            // It's a numerical index starting from 0 for the first element in the array.
-            // Map each lecture to a list lecture with a button
             <li key={index}>
-              <button className='menuitem' onClick={() => handleClick(lecture)}>
-               
+              <button
+                className={`menuitem ${
+                  selectedLecture === lecture ? "selected" : ""
+                }`}
+                onClick={() => handleClick(lecture)}>
                 {lecture.label}
               </button>
-              <hr/>
+              <hr />
             </li>
           ))}
         </ul>

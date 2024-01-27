@@ -35,6 +35,11 @@
         background-color: #33333300;
         color: #d0a13c;
     }
+    .menuitem.selected {
+        background-color: #d0a13c; /* Highlight color */
+        color: #333; /* Text color for selected item */
+        
+      }
     
     .menu-content ul {
     list-style: none; /* Remove list bullets */
@@ -52,3 +57,5 @@
     .menu-content li a:hover {
     background-color: #555; /* Hover background color */
     }  
+
+   
