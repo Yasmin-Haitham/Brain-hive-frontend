@@ -19,6 +19,18 @@
     width: 90%;
    
   }
+  .Friends-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px ;
+    justify-content: flex-start;
+    background-image: linear-gradient(#14281D,black);
+    margin-bottom: 50px;
+    margin-left: 5%;
+    width: 90%;
+   
+  }
   .coursestitle{
    margin-top: 10px;
     display: flex;
@@ -62,7 +74,21 @@
     border: none;
     margin-bottom: 10px;
   }
+
   .all-courses-button:hover{
+    background-color: #B17C0D;
+    border-radius: 10%;
+  }
+  .all-Friends-button {
+    /* margin-top: 10px; */
+    margin-right: 60px;
+    align-self: flex-end;
+    background-color: #9046ff00;
+    border: none;
+    margin-bottom: 10px;
+  }
+  
+  .all-Friends-button:hover{
     background-color: #B17C0D;
     border-radius: 10%;
   }
@@ -92,3 +118,9 @@
     background-size: cover;
   }
   
+  .FriendsTitle{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 30px;
+  }

@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../CoursesProfile.css";
-import logo from "../images/logo.png";
 
+import FriendList from "./FriendList";
+import * as api from "./API";
 function Friends() {
   const navigate = useNavigate();
 
@@ -11,27 +12,11 @@ function Friends() {
   };
 
   return (
-    <div className='courses-container'>
-      <div className='coursestitle'>Friends</div>
-      <button
-        className='all-courses-button'
-        onClick={() => navigate("/Courses")}>
-        All Courses
-      </button>
-
-      <div className='courses-grid'>
-        <button className='course-image-btn'>
-          <img src={logo} alt='course' />
-        </button>
-        <button className='course-image-btn'>
-          <img src={logo} alt='course' />
-        </button>
-        <button className='course-image-btn'>
-          <img src={logo} alt='course' />
-        </button>
-        <button className='course-image-btn'>
-          <img src={logo} alt='course' />
-        </button>
+    <div className='Friends-container'>
+      <div className='FriendsTitle'>Friends</div>
+      
+      <div>
+        <FriendList />
       </div>
     </div>
   );
