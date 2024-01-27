@@ -7,7 +7,7 @@ import LearningStylesBar from "./learningstylesbar.js";
 import VideoPlayer from "./VideoPlayer.js"; //Auditory
 import CoursePDFViewer from "./CoursePDFViewer.js"; // Read/Write
 import GalleryGrid from "./GalleryGrid.js"; // Visual
-
+import PomodoroTimer from "./Timer";
 import CourseMenu from "./CourseMenu.js";
 import "../CourseContent.css";
 
@@ -258,6 +258,7 @@ const CourseContent = () => {
               </div>
 
               <LearningStylesBar onSelectStyle={handleStyleSelection} />
+              <PomodoroTimer />
             </>
           )}
         </div>

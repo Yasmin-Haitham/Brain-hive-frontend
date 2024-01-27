@@ -20,6 +20,7 @@ import CourseMenu from "./components/CourseMenu";
 
 import FriendList from "./components/FriendList";
 import TodoFinal from "./components/TodoFinal";
+import Timer from "./components/Timer";
 function App() {
   return (
     <div className='App'>
@@ -36,6 +37,7 @@ function App() {
           <Route path='/CourseMenu' element={<CourseMenu />} />
           <Route path='/FriendList' element={<FriendList />} />
           <Route path='/TodoFinal' element={<TodoFinal />} />
+          <Route path='/Timer' element={<Timer />} />
         </Routes>
       </BrowserRouter>
     </div>
