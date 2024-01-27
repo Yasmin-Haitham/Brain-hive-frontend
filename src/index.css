@@ -232,8 +232,20 @@ input:valid {
     /* color: var(--opac-white); */
     margin-left: 20px;
     position:relative;
-    justify-content: space-between;    
+    justify-content: space-between;
+    border-color: var(--dusky-green);
+        
 }
+.dropdown{
+    background-color: #1d2b3ac6;
+    border-color: var(--dusky-green);
+    padding: 8px;
+    color: rgba(0, 0, 0, 0.486);
+}
+
+
+
+
 .form{
 justify-items:flex-start;
 }

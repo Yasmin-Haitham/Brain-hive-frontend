@@ -236,7 +236,9 @@ function SignUpForm({ onSignUpClick }) {
                   md={6}
                   controlId='validationFormikSpecialization'
                   className='form-group'>
-                  <Form.Label>Specialization</Form.Label>
+                  <Form.Label style={{ color: "white" }}>
+                    Specialization
+                  </Form.Label>
                   <Field as='select' name='specialization' className='dropdown'>
                     <option value=''>Select your specialization</option>
                     {specializations.map((specialization, index) => (
