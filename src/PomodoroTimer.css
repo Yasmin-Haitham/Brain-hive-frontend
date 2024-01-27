@@ -1,0 +1,28 @@
+/* PomodoroTimer.css */
+
+.timer-display {
+  font-size: 10px;
+  margin-bottom: 10px;
+}
+
+/* Style the control buttons */
+.control-buttons {
+  display: flex;
+  gap: 10px;
+  font-size: 10px;
+}
+
+/* Style the settings section */
+.settings-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 5px;
+  font-size: 10px;
+}
+
+/* Style the buttons in the settings section */
+.settings-section button {
+  margin: 5px;
+  font-size: 10px;
+}
