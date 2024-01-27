@@ -7,10 +7,10 @@ import LearningStylesBar from "./learningstylesbar.js";
 import VideoPlayer from "./VideoPlayer.js"; //Auditory
 import CoursePDFViewer from "./CoursePDFViewer.js"; // Read/Write
 import GalleryGrid from "./GalleryGrid.js"; // Visual
-// import Todolist from './Todolist.js'; // kinesthetic
+
 import CourseMenu from "./CourseMenu.js";
 import "../CourseContent.css";
-import { TodoWrapper } from "./TodoWrapper.js";
+
 import TodoFinal from "./TodoFinal.js";
 import * as api from "./API.js";
 

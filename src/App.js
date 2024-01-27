@@ -14,10 +14,10 @@ import QuizPage from "./components/QuizPage";
 import ProfilePage from "./components/ProfilePage";
 import Courses from "./components/Courses";
 import CourseContent from "./components/CourseContent";
-// import Todolist from "./components/Todolist";
+
 import GalleryGrid from "./components/GalleryGrid";
 import CourseMenu from "./components/CourseMenu";
-import { TodoWrapper } from "./components/TodoWrapper";
+
 import FriendList from "./components/FriendList";
 import TodoFinal from "./components/TodoFinal";
 function App() {
@@ -32,7 +32,6 @@ function App() {
           <Route path='/ProfilePage' element={<ProfilePage />} />
           <Route path='/Courses' element={<Courses />} />
           <Route path='/CourseContent/:courseId' element={<CourseContent />} />
-          <Route path='/todolist' element={<TodoWrapper />} />
           <Route path='/GalleryGrid' element={<GalleryGrid />} />
           <Route path='/CourseMenu' element={<CourseMenu />} />
           <Route path='/FriendList' element={<FriendList />} />
