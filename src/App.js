@@ -19,6 +19,7 @@ import GalleryGrid from "./components/GalleryGrid";
 import CourseMenu from "./components/CourseMenu";
 import { TodoWrapper } from "./components/TodoWrapper";
 import FriendList from "./components/FriendList";
+import TodoFinal from "./components/TodoFinal";
 function App() {
   return (
     <div className='App'>
@@ -35,6 +36,7 @@ function App() {
           <Route path='/GalleryGrid' element={<GalleryGrid />} />
           <Route path='/CourseMenu' element={<CourseMenu />} />
           <Route path='/FriendList' element={<FriendList />} />
+          <Route path='/TodoFinal' element={<TodoFinal />} />
         </Routes>
       </BrowserRouter>
     </div>
