@@ -48,7 +48,9 @@ function CoursesFeed(props) {
   };
 
   return (
+    
     <div className="CoursesFeed">
+      
       <div className="CoursesFeed-header">
         <div className="CoursesFeed-user-info">
           <h3 className="CoursesFeed-user-name">{courseName}</h3>
@@ -59,8 +61,6 @@ function CoursesFeed(props) {
         <p className="CoursesFeed-post-description">{description}</p>
         <img className="CoursesFeed-post-image" src={image} alt="Post Image" />
         <div className="CoursesFeed-buttons">
-          {/* <button className="CoursesFeed-comment-button">{comment}</button> */}
-          {/* <div style={{ marginTop: "5px", fontSize: "30px" }}>{"|"}</div> */}
           <button className="CoursesFeed-start-course-button" onClick={handleButtonClick}>
             {isEnrolled() ? 'View Course' : 'Start Course'}
           </button>

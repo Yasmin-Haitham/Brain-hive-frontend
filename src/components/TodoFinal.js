@@ -42,7 +42,7 @@ const TodoFinal = () => {
             </button>
             <button
               onClick={() => toggleTaskCompletion(task.id)}
-              className={`btn ${
+              className={`abtn ${
                 task.isCompleted ? "complete-btn" : "incomplete-btn"
               }`}>
               {task.isCompleted ? "✓" : "✕"}
