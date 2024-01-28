@@ -1,0 +1,69 @@
+/* NoteTaker.css */
+
+.note-taker-container {
+  text-align: center;
+  padding: 20px;
+  margin: 20px;
+  background-color: #f0f0f0;
+}
+
+.note-taker-heading {
+  color: #333;
+}
+
+.note-taker-sub-heading {
+  color: #666;
+}
+
+.note-taker-form-holder {
+  margin-top: 20px;
+}
+
+.note-taker-form-group {
+  margin-bottom: 15px;
+}
+
+.note-taker-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.note-taker-input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.note-taker-button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.note-taker-notes-container {
+  margin-top: 30px;
+}
+
+.note-taker-no-notes {
+  color: #999;
+}
+
+.note-taker-notes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.note-taker-notes-header {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+}
+
+.note-taker-note-cell {
+  border: 1px solid #ddd;
+  padding: 10px;
+}

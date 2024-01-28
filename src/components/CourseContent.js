@@ -13,6 +13,7 @@ import "../CourseContent.css";
 
 import TodoFinal from "./TodoFinal.js";
 import * as api from "./API.js";
+import NoteTaker from "./NoteTaker.js";
 
 const CourseContent = () => {
   ///////////////////////////////////////////////////BACKEND/////////////////////////////////////////////////////
@@ -224,8 +225,8 @@ const CourseContent = () => {
   return (
     <div>
       <NavbarComponent />
-      <div className='course-content-container'>
-        <div className='course-layout'>
+      <div className="course-content-container">
+        <div className="course-layout">
           {loading ? (
             <p>Loading...</p>
           ) : (
@@ -241,7 +242,7 @@ const CourseContent = () => {
                 <div></div>
               )}
 
-              <div className='course-viewer'>
+              <div className="course-viewer">
                 {/* Render components based on selectedStyle and selectedContentItem */}
                 {selectedStyle === "Auditory" && selectedContentItem && (
                   <VideoPlayer url={selectedContentItem.link} />
@@ -263,6 +264,10 @@ const CourseContent = () => {
         </div>
         <div>
           <PomodoroTimer />
+        </div>
+
+        <div>
+          <NoteTaker />
         </div>
       </div>
     </div>
