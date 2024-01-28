@@ -1,19 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../FriendListItem.css"; // Make sure this path matches your CSS file's location
 import logo from "../images/logo.png";
 import * as api from "./API";
 
-function FriendList({ friends, onAddFriend }) {
+function FriendList() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [friends, setFriends] = useState([]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleAddFriendClick = () => {
-    // Implement the logic to handle adding a friend
-    onAddFriend(searchTerm);
+  const fetchFriends = async () => {
+    try {
+      // Fetch friends and update the state
+      const friendsData = await api.getFriends(setFriends);
+      console.log("Fetched friends:", friendsData);
+      // setFriends(friendsData || []); // Provide a default empty array
+    } catch (error) {
+      console.error("Error fetching friends:", error);
+    }
   };
+
+  const handleAddFriendClick = async () => {
+    try {
+      // Implement the logic to handle adding a friend
+      await api.addFriend(searchTerm);
+      // Fetch and update the friends list after adding a friend
+      await fetchFriends();
+    } catch (error) {
+      console.error("Error adding friend:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch friends when the component mounts
+    fetchFriends();
+  }, []);
 
   return (
     <div className='friend-list-container'>
@@ -26,42 +49,29 @@ function FriendList({ friends, onAddFriend }) {
         />
         <button onClick={handleAddFriendClick}>Add Friend</button>
       </div>
-      <div className='friend-list-item'>
-        <div className='profile-pic'>
-          <img src={logo} alt='course' />
-        </div>
-        <div className='friend-name'>yasmin haitham</div>
-        <div className='friend-score'> 1000000</div>
-      </div>
-      <div className='friend-list-item'>
-        <div className='profile-pic'>
-          <img src={logo} alt='course' />
-        </div>
-        <div className='friend-name'>yasmin haitham</div>
-        <div className='friend-score'> 1000000</div>
-      </div>
-      {/* {friends.map((friend) => (
+      {/* Render friends */}
+      {friends.map((friend) => (
         <FriendListItem
-          key={friend.id}
-          profilePic={friend.profilePic}
-          friendName={friend.name}
-          score={friend.score}
+          key={friend._id}
+          profilePic={friend.ProfilePicturePath}
+          friendName={friend.Name}
+          score={friend.totalScore}
         />
-      ))} */}
+      ))}
     </div>
   );
 }
 
-// function FriendListItem({ profilePic, friendName, score }) {
-//   return (
-//     <div className='friend-list-item'>
-//       <div className='profile-pic'>
-//         <img src={profilePic} alt={`${friendName}'s profile`} />
-//       </div>
-//       <div className='friend-name'>{friendName}</div>
-//       <div className='friend-score'>{score}</div>
-//     </div>
-//   );
-// }
+function FriendListItem({ profilePic, friendName, score }) {
+  return (
+    <div className='friend-list-item'>
+      <div className='profile-pic'>
+        <img src={process.env.PUBLIC_URL + `/${profilePic}.png`} alt={`${friendName}'s profile`} />
+      </div>
+      <div className='friend-name'>{friendName}</div>
+      <div className='friend-score'>{score}</div>
+    </div>
+  );
+}
 
 export default FriendList;

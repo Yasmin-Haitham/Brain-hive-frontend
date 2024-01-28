@@ -18,21 +18,28 @@ export const getUser = async (setUserData, setUserSet, setLoading) => {
     });
 };
 
-// add friend
 
+// add friend
 export const addFriend = async (friendEmail) => {
-  await axios
-  .post(`${API_BASE_URL}/user/addFriend`, { friendEmail: friendEmail }, { withCredentials: true })
-  .then((res) => console.log(res.data))
-  .catch((error) => console.error("Error adding friend:", error));
+  try {
+    await axios.post(
+      `${API_BASE_URL}/user/addFriend`,
+      { friendEmail },  // Updated to match the backend's expectation
+      { withCredentials: true }
+    );
+    console.log("Friend added successfully.");
+  } catch (error) {
+    console.error("Error adding friend:", error);
+  }
 };
+
 
 // get friends
 
-export const getFriends = async () => {
+export const getFriends = async (setFriends) => {
   await axios
 .get(`${API_BASE_URL}/user/getFriends`, { withCredentials: true })
-.then((res) => console.log(res.data))
+.then((res) => setFriends(res.data))
 .catch((error) => console.error("Error fetching friends:", error));
 };
 
