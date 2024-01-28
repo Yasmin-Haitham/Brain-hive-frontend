@@ -36,13 +36,16 @@
 }
 
 .PomodoroTimer {
-  width: 300px;
-  margin: 0 auto;
+  width: 500px;
+  margin: 0px 600px ;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #f9f9f968;
+  box-sizing: border-box; /* Make sure padding doesn't affect the final width */
 }
+
+
 
 h2 {
   text-align: center;
@@ -66,7 +69,3 @@ h2 {
   
 }
 
-.PomodoroTimer{
-  height: min-content;
-  margin-top: auto;
-}

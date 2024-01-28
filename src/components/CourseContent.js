@@ -258,9 +258,11 @@ const CourseContent = () => {
               </div>
 
               <LearningStylesBar onSelectStyle={handleStyleSelection} />
-              <PomodoroTimer />
             </>
           )}
+        </div>
+        <div>
+          <PomodoroTimer />
         </div>
       </div>
     </div>

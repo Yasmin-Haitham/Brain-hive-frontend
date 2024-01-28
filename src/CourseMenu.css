@@ -2,7 +2,7 @@
     width: 250px; /* Or any appropriate width */
     background: #333; /* Background color of the menu */
     color: #fff; 
-    height: 100vh; 
+    height: 150vh; 
     position: fixed; /* Positioning relative to the viewport */
     left: 0; /* Align to the left side */
     top: 0; /* Align to the top */

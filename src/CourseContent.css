@@ -6,7 +6,7 @@
   .course-layout {
     display: flex;
     flex-direction: row;
-    height: calc(100vh - 50px); /* Adjust the height if you have a header */
+    height: calc(100vh - 50px); 
   }
   
   .course-menu {
@@ -19,7 +19,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 90px;
+  margin-top: 0px;
   margin-right: 90px;
   /* overflow-y: auto;  */
   /* width: 50px; */

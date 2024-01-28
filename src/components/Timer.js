@@ -67,7 +67,7 @@ function Timer() {
       <h2>Pomodoro Timer</h2>
       <div id='timer-settings'>
         <label>
-          Work Time (minutes):
+          Study Time (set your own):
           <input
             type='number'
             value={workTime / 60}
@@ -75,7 +75,7 @@ function Timer() {
           />
         </label>
         <label>
-          Break Time (minutes):
+          Break Time (set your own):
           <input
             type='number'
             value={breakTime / 60}
