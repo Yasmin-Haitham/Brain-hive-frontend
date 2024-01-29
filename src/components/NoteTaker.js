@@ -41,7 +41,8 @@ const NoteTaker = (props) => {
         <Button
           onClick={() => props.setTrigger(false)}
           variant="outline-success"
-          style={{ marginBottom: "15px", marginRight: "1100px" }}
+          className="closebtnnote"
+          
         >
           Close
         </Button>
@@ -53,9 +54,9 @@ const NoteTaker = (props) => {
       </p>
       <div className="note-taker-form-holder">
         <div className="note-taker-form-group">
-          <label htmlFor="note" className="note-taker-label">
+          {/* <label htmlFor="note" className="note-taker-label">
             Note:
-          </label>
+          </label> */}
           <input
             type="text"
             className="note-taker-input"
@@ -85,6 +86,7 @@ const NoteTaker = (props) => {
             {currentNotes.map((n, index) => (
               <p key={index} className="note-taker-note-text">
                 {insertLineBreaks(n, 10, 80)}
+                <hr />
               </p>
             ))}
           </div>

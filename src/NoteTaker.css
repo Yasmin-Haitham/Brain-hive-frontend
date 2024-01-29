@@ -4,18 +4,28 @@
   text-align: center;
   padding: 20px;
   margin: 20px;
-  background-color: rgba(169, 169, 169, 0.8); /* Grey transparent background */
+  background-image: linear-gradient(#14281dd6,rgba(0, 0, 0, 0.751));
   position: fixed;
   top: 75px;
   left: 0;
+  right: 0;
 }
 
 .note-taker-heading {
-  color: #333;
+  color: #B17C0D;
+}
+.closebtnnote{
+  position: absolute;
+  left: 0;
+  margin:10px;
+  background-color: #B17C0D;
+  color: white;
+  border:none;
+  
 }
 
 .note-taker-sub-heading {
-  color: #666;
+  color: #B17C0D;
 }
 
 .note-taker-form-holder {
@@ -29,7 +39,7 @@
 .note-taker-label {
   display: block;
   margin-bottom: 5px;
-  color: #333;
+  color: #B17C0D;
 }
 
 .note-taker-input {
@@ -41,10 +51,11 @@
 
 .note-taker-button {
   padding: 8px 15px;
-  background-color: #28a745;
+  background-color: #B17C0D;
   color: #fff;
   border: none;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .note-taker-notes-container {
@@ -52,7 +63,7 @@
 }
 
 .note-taker-no-notes {
-  color: #999;
+  color: #B17C0D;
 }
 
 .note-taker-notes-table {
