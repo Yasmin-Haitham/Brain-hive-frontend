@@ -1,7 +1,7 @@
 // NoteTaker.js
 
 import React, { useState } from "react";
-import "../NoteTaker.css"; // Import the CSS file
+import "../NoteTaker.css";
 
 const NoteTaker = () => {
   const [note, setNote] = useState("");
@@ -14,6 +14,24 @@ const NoteTaker = () => {
   const handleClick = () => {
     setCurrentNotes([...currentNotes, note]);
     setNote("");
+  };
+
+  const insertLineBreaks = (text, wordsPerLine, maxWordLength) => {
+    const words = text.split(" ");
+    const lines = [];
+    for (let i = 0; i < words.length; i += wordsPerLine) {
+      const lineWords = words.slice(i, i + wordsPerLine);
+      const processedWords = lineWords.map((word) =>
+        word.length > maxWordLength
+          ? word.replace(
+              new RegExp(`.{${maxWordLength}}`, "g"),
+              (match) => match + "\n"
+            )
+          : word
+      );
+      lines.push(processedWords.join(" "));
+    }
+    return lines.join("\n");
   };
 
   return (
@@ -51,20 +69,13 @@ const NoteTaker = () => {
         {currentNotes.length === 0 ? (
           <p className="note-taker-no-notes">No notes to display</p>
         ) : (
-          <table className="note-taker-notes-table">
-            <thead>
-              <tr>
-                <th className="note-taker-notes-header">Note</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentNotes.map((n, index) => (
-                <tr key={index}>
-                  <td className="note-taker-note-cell">{n}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="note-taker-notes-list">
+            {currentNotes.map((n, index) => (
+              <p key={index} className="note-taker-note-text">
+                {insertLineBreaks(n, 10, 80)}
+              </p>
+            ))}
+          </div>
         )}
       </div>
     </div>

@@ -4,7 +4,7 @@
   text-align: center;
   padding: 20px;
   margin: 20px;
-  background-color: #f0f0f0;
+  background-color: rgba(169, 169, 169, 0.2); /* Grey transparent background */
 }
 
 .note-taker-heading {
@@ -33,11 +33,12 @@
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
+  color: #333;
 }
 
 .note-taker-button {
   padding: 8px 15px;
-  background-color: #007bff;
+  background-color: #28a745;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -52,13 +53,13 @@
 }
 
 .note-taker-notes-table {
-  width: 100%;
+  width: 50%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
 .note-taker-notes-header {
-  background-color: #007bff;
+  background-color: #28a745;
   color: #fff;
   padding: 10px;
 }
@@ -66,4 +67,5 @@
 .note-taker-note-cell {
   border: 1px solid #ddd;
   padding: 10px;
+  overflow-wrap: break-word;
 }
