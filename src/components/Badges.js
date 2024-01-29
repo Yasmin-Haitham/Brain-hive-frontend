@@ -29,12 +29,12 @@ function Badges() {
   return (
     <div className="courses-container">
       <div className="coursestitle">Badges</div>
-      <button
+      {/* <button
         className="all-courses-button"
         onClick={() => navigate("/Courses")}
       >
         All Courses
-      </button>
+      </button> */}
 
       <div className="courses-grid">
         {badges &&
