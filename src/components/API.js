@@ -188,4 +188,21 @@ export const updateTodo = async (id, title) => {
 };
 /********************************************Todo API End*********************************************************/
 
+/********************************************Badges API Start*****************************************************/
+
+export const getUserBadges = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/courses/badges`,
+    { withCredentials: true }
+    );
+    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user badges:", error);
+    throw error;
+  }
+}; 
+
+/********************************************Badges API End*******************************************************/
+
 export * from "./API";
