@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import "../NoteTaker.css";
+import { Button } from "react-bootstrap";
 
-const NoteTaker = () => {
+const NoteTaker = (props) => {
   const [note, setNote] = useState("");
   const [currentNotes, setCurrentNotes] = useState([]);
 
@@ -34,9 +35,19 @@ const NoteTaker = () => {
     return lines.join("\n");
   };
 
-  return (
+  return props.trigger ? (
     <div className="note-taker-container">
-      <h1 className="note-taker-heading">Note Taker</h1>
+      <div>
+        <Button
+          onClick={() => props.setTrigger(false)}
+          variant="outline-success"
+          style={{ marginBottom: "15px", marginRight: "1100px" }}
+        >
+          Close
+        </Button>
+        {props.children}
+      </div>
+      <h1 className="note-taker-heading">Note-Taker</h1>
       <p className="note-taker-sub-heading">
         A place to put your epic thoughts.
       </p>
@@ -55,12 +66,13 @@ const NoteTaker = () => {
             value={note}
           />
           <br />
+          <br></br>
           <button
             type="button"
             className="note-taker-button"
             onClick={handleClick}
           >
-            Submit
+            Take Notes!
           </button>
         </div>
       </div>
@@ -79,6 +91,8 @@ const NoteTaker = () => {
         )}
       </div>
     </div>
+  ) : (
+    ""
   );
 };
 

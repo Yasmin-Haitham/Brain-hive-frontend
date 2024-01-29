@@ -10,7 +10,7 @@ import GalleryGrid from "./GalleryGrid.js"; // Visual
 import PomodoroTimer from "./Timer";
 import CourseMenu from "./CourseMenu.js";
 import "../CourseContent.css";
-
+import Button from "react-bootstrap/Button";
 import TodoFinal from "./TodoFinal.js";
 import * as api from "./API.js";
 import NoteTaker from "./NoteTaker.js";
@@ -30,7 +30,7 @@ const CourseContent = () => {
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [userSet, setUserSet] = useState(false);
   const [courseSet, setCourseSet] = useState(false);
-
+  const [buttonPopup, setButtonPopup] = useState(false);
   const handleMenuItemClick = (selecteditem) => {
     setSelectedContentItem(selecteditem);
   };
@@ -241,7 +241,20 @@ const CourseContent = () => {
               ) : (
                 <div></div>
               )}
-
+              <div>
+                {" "}
+                <Button
+                  onClick={() => setButtonPopup(true)}
+                  variant="outline-success"
+                  style={{
+                    position: "absolute",
+                    right: "115px",
+                    top: "110px",
+                  }}
+                >
+                  Notes
+                </Button>
+              </div>
               <div className="course-viewer">
                 {/* Render components based on selectedStyle and selectedContentItem */}
                 {selectedStyle === "Auditory" && selectedContentItem && (
@@ -267,7 +280,7 @@ const CourseContent = () => {
         </div>
 
         <div>
-          <NoteTaker />
+          <NoteTaker trigger={buttonPopup} setTrigger={setButtonPopup} />
         </div>
       </div>
     </div>
