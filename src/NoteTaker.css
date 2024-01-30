@@ -4,7 +4,7 @@
   text-align: center;
   padding: 20px;
   margin: 20px;
-  background-image: linear-gradient(#14281dd6,rgba(0, 0, 0, 0.751));
+  background-image: linear-gradient(#14281dd6, rgba(0, 0, 0, 0.751));
   position: fixed;
   top: 75px;
   left: 0;
@@ -12,20 +12,19 @@
 }
 
 .note-taker-heading {
-  color: #B17C0D;
+  color: #b17c0d;
 }
-.closebtnnote{
+.closebtnnote {
   position: absolute;
   left: 0;
-  margin:10px;
-  background-color: #B17C0D;
+  margin: 10px;
+  background-color: #b17c0d;
   color: white;
-  border:none;
-  
+  border: none;
 }
 
 .note-taker-sub-heading {
-  color: #B17C0D;
+  color: #b17c0d;
 }
 
 .note-taker-form-holder {
@@ -39,7 +38,7 @@
 .note-taker-label {
   display: block;
   margin-bottom: 5px;
-  color: #B17C0D;
+  color: #b17c0d;
 }
 
 .note-taker-input {
@@ -51,7 +50,7 @@
 
 .note-taker-button {
   padding: 8px 15px;
-  background-color: #B17C0D;
+  background-color: #b17c0d;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -63,7 +62,7 @@
 }
 
 .note-taker-no-notes {
-  color: #B17C0D;
+  color: #b17c0d;
 }
 
 .note-taker-notes-table {
