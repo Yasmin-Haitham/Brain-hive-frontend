@@ -129,46 +129,11 @@ export const extractYouTubeTitle = async (url) => {
 /********************************************Course API End*******************************************************/
 
 /********************************************Todo API Start*******************************************************/
-// Function to fetch all todos
-export const getAllTodos = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/todos`);
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching todos:", error);
-    throw error;
-  }
-};
-
-// Function to add a new todo
-export const addTodo = async (title, userId) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/todos`, {
-      title,
-      createdBy: userId,
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error adding todo:", error);
-    throw error;
-  }
-};
-
-// Function to delete a todo
-export const deleteTodo = async (id) => {
-  try {
-    const response = await axios.delete(`${API_BASE_URL}/todos/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error deleting todo:", error);
-    throw error;
-  }
-};
 
 // Function to toggle completion of a todo
-export const toggleTodoCompletion = async (id) => {
+export const toggleTodoCompletion = async (todoId) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/todos/${id}/toggle`);
+    const response = await axios.post(`${API_BASE_URL}/courses/todoToggled`,{todoId},{ withCredentials: true });
     return response.data;
   } catch (error) {
     console.error("Error toggling todo completion:", error);
@@ -176,16 +141,6 @@ export const toggleTodoCompletion = async (id) => {
   }
 };
 
-// Function to update a todo's task
-export const updateTodo = async (id, title) => {
-  try {
-    const response = await axios.put(`${API_BASE_URL}/todos/${id}`, { title });
-    return response.data;
-  } catch (error) {
-    console.error("Error updating todo:", error);
-    throw error;
-  }
-};
 /********************************************Todo API End*********************************************************/
 
 /********************************************Badges API Start*****************************************************/

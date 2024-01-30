@@ -1,51 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../ToDoListFinal.css";
+import * as api from "./API.js";
 
-const TodoFinal = () => {
-  // Initial state with an array of tasks
-  const [tasks, setTasks] = useState([
-    { id: 1, name: "task 1", isCompleted: false },
-    { id: 2, name: "task 2", isCompleted: false },
-    // ...more tasks
-  ]);
+const TodoFinal = ({ tasks, doneTasks }) => {
+  // State for user done tasks
+  const [userDoneTasks, setUserDoneTasks] = useState(doneTasks);
+  console.log("userDoneTasks: "+userDoneTasks)
 
   // Function to handle PDF download
-  const handleDownloadPDF = (taskId) => {
-    // Logic to download PDF
-    console.log(`PDF Downloaded for task ${taskId}`);
+  const handleDownloadPDF = (index) => {
+    try {
+      // Open a new tab with the PDF link
+      window.open(tasks[index].pdf, "_blank");
+      // Window alert
+      window.alert(`PDF opened for task ${index}`);
+    } catch (error) {
+      window.alert("Error opening PDF:", error);
+      // Handle the error as needed
+    }
   };
 
   // Function to toggle task completion
-  const toggleTaskCompletion = (taskId) => {
-    // Update the isCompleted property for the clicked task
-    const updatedTasks = tasks.map((task) => {
-      if (task.id === taskId) {
-        return { ...task, isCompleted: !task.isCompleted };
-      }
-      return task;
-    });
-    setTasks(updatedTasks);
-  };
+const toggleTaskCompletion = async (todoId) => {
+  try {
+    const res = await api.toggleTodoCompletion(todoId);
+
+    // Assuming the API response contains a property 'todosDone'
+    const updatedDoneTasks = res.todosDone || [];
+
+    // Set the state with the updated array of done tasks
+    setUserDoneTasks(updatedDoneTasks);
+    console.log("Updated Done Tasks:", updatedDoneTasks);
+  } catch (err) {
+    console.log("Error toggling task completion:", err);
+  }
+};
+
 
   return (
-    <div className='todo-container'>
-      <h2 className='todo-title'>Course Tasks</h2>
-      {tasks.map((task) => (
-        <div key={task.id} className='task'>
-          <div className='taskname'>{task.name}</div>
+    <div className="todo-container">
+      <h2 className="todo-title">Course Tasks</h2>
+      {tasks.map((task, index) => (
+        <div key={index} className="task">
+          <div className="taskname">{task.title}</div>
 
-          <div className='task-buttons'>
+          <div className="task-buttons">
             <button
-              onClick={() => handleDownloadPDF(task.id)}
-              className='btn download-btn'>
+              onClick={() => handleDownloadPDF(index)}
+              className="btn download-btn"
+            >
               pdf
             </button>
             <button
               onClick={() => toggleTaskCompletion(task.id)}
               className={`abtn ${
-                task.isCompleted ? "complete-btn" : "incomplete-btn"
-              }`}>
-              {task.isCompleted ? "✓" : "✕"}
+                userDoneTasks.includes(task.id) ? "complete-btn" : "incomplete-btn"
+              }`}
+            >
+              {userDoneTasks.includes(task.id) ? "✓" : "✕"}
             </button>
           </div>
         </div>
@@ -55,3 +67,4 @@ const TodoFinal = () => {
 };
 
 export default TodoFinal;
+

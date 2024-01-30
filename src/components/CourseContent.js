@@ -31,6 +31,7 @@ const CourseContent = () => {
   const [userSet, setUserSet] = useState(false);
   const [courseSet, setCourseSet] = useState(false);
   const [buttonPopup, setButtonPopup] = useState(false);
+  const [doneTasks, setDoneTasks] = useState([]);
   const handleMenuItemClick = (selecteditem) => {
     setSelectedContentItem(selecteditem);
   };
@@ -65,10 +66,16 @@ const CourseContent = () => {
   const createTaskObject = (tasks) => {
     // Create task object with title, pdf, and status
     const taskObject = tasks.map((item) => ({
+      id: item.sys.id,
       title: item.fields.title,
       pdf: item.fields.file.url,
       status: false,
     }));
+    if (userData.todosDone) {
+      setDoneTasks(userData.todosDone);
+      console.log("done tasks from content:"+doneTasks);
+      console.log("done user tasks from content:"+userData.todosDone);
+    }
     return taskObject;
   };
   const createImageObject = (imageData) => {
@@ -84,6 +91,7 @@ const CourseContent = () => {
     try {
       if (!userSet) {
         fetchUserData();
+        
       } else {
         setUserDataLearningStyle();
       }
@@ -198,10 +206,7 @@ const CourseContent = () => {
           link: `${img.link}`,
         }));
       case "Kinesthetic":
-        return tasks.map((task, index) => ({
-          label: `Task ${index + 1}`,
-          link: `${task.link}`,
-        }));
+        return [];
       default:
         return [];
     }
@@ -267,7 +272,7 @@ const CourseContent = () => {
                   <GalleryGrid images={selectedContentItem.link} />
                 )}
                 {selectedStyle === "Kinesthetic" && selectedContentItem && (
-                  <TodoFinal tasks={selectedContentItem} />
+                  <TodoFinal tasks={tasks} doneTasks={doneTasks} />
                 )}
               </div>
 
