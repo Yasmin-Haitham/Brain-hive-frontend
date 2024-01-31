@@ -11,7 +11,7 @@ function CoursesFeed(props) {
 
   useEffect(() => {
     api.getUser(setUserData, setUserSet, setLoading);
-  }, []);
+  }, [userSet]);
 
   function isEnrolled() {
     if (userData != null) {
@@ -37,7 +37,7 @@ function CoursesFeed(props) {
       } else {
         // Enroll in the course
         const response = api.enrollCourse(courseName, courseId, courseDepartment)
-        console.log(response.data); // Log the response if needed
+        console.log("response from enrolled courses: "+response.data); // Log the response if needed
 
         // Update the user data after enrolling
         api.getUser(setUserData, setUserSet, setLoading);
