@@ -2,6 +2,55 @@ import axios from "axios";
 const API_BASE_URL = "http://localhost:3030";
 /********************************************User API Start*********************************************************/
 
+
+//axios call addBadge from local host 
+
+const addBadge = async (functionName) => {
+  await axios
+ .post(`${API_BASE_URL}/courses/addBadge`,{functionName} ,{
+      withCredentials: true,
+    })
+ .then((res) => {
+      console.log(res.data);
+    })
+ .catch((error) => {
+      console.log(error);
+    });
+};
+
+//login
+export const login = async (userData) => {
+  axios
+      .post("http://localhost:3030/user/login", userData, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        // Handle the response from the server (e.g., redirect or display a message)
+        console.log("Login successful", response.data);
+
+        sessionStorage.setItem("userId", response.data.uid);
+
+        // Check if the login was successful
+        if (response.data.success) {
+          // Redirect to the home page or perform any other action
+          if (response.data.LearningStyle == null) {
+            window.location.href = "/quiz";
+          } else {
+            window.location.href = "/Home";
+          }
+        } else {
+          // Display an alert if the login was not successful
+          alert("Email or password is wrong.");
+        }
+      })
+      .catch((error) => {
+        // Handle errors (e.g., display an error message)
+        console.log("Login failed", error);
+        // Display an alert for other errors
+        alert("An error occurred while logging in.");
+      });
+  addBadge("login");
+    }
 // Fetch user data from the server
 export const getUser = async (setUserData, setUserSet, setLoading) => {
   await axios
@@ -18,13 +67,12 @@ export const getUser = async (setUserData, setUserSet, setLoading) => {
     });
 };
 
-
 // add friend
 export const addFriend = async (friendEmail) => {
   try {
     await axios.post(
       `${API_BASE_URL}/user/addFriend`,
-      { friendEmail },  // Updated to match the backend's expectation
+      { friendEmail }, // Updated to match the backend's expectation
       { withCredentials: true }
     );
     console.log("Friend added successfully.");
@@ -33,14 +81,13 @@ export const addFriend = async (friendEmail) => {
   }
 };
 
-
 // get friends
 
 export const getFriends = async (setFriends) => {
   await axios
-.get(`${API_BASE_URL}/user/getFriends`, { withCredentials: true })
-.then((res) => setFriends(res.data))
-.catch((error) => console.error("Error fetching friends:", error));
+    .get(`${API_BASE_URL}/user/getFriends`, { withCredentials: true })
+    .then((res) => setFriends(res.data))
+    .catch((error) => console.error("Error fetching friends:", error));
 };
 
 /********************************************User API End**********************************************************/
@@ -104,6 +151,29 @@ export const getOneCourse = async (
     });
 };
 
+// enroll in course
+
+export const enrollCourse = async (courseName, courseId, courseDepartment) => {
+  await axios
+    .post(
+      "http://localhost:3030/courses/enroll",
+      {
+        courseName: courseName,
+        courseId: courseId,
+        courseDepartment: courseDepartment,
+      },
+      { withCredentials: true }
+    )
+    .then((res) => {
+      console.log("Course enrolled successfully.");
+      return res;
+    })
+    .catch((error) => {
+      console.error("Error enrolling in course:", error);
+    });
+    addBadge("enroll");
+};
+
 export const extractYouTubeTitle = async (url) => {
   // Extract video ID from the YouTube URL
   const videoId = url.match(
@@ -133,7 +203,12 @@ export const extractYouTubeTitle = async (url) => {
 // Function to toggle completion of a todo
 export const toggleTodoCompletion = async (todoId) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/courses/todoToggled`,{todoId},{ withCredentials: true });
+    const response = await axios.post(
+      `${API_BASE_URL}/courses/todoToggled`,
+      { todoId },
+      { withCredentials: true }
+    );
+    addBadge("todoToggled")
     return response.data;
   } catch (error) {
     console.error("Error toggling todo completion:", error);
@@ -147,16 +222,18 @@ export const toggleTodoCompletion = async (todoId) => {
 
 export const getUserBadges = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/courses/badges`,
-    { withCredentials: true }
-    );
-    console.log(response.data)
+    const response = await axios.get(`${API_BASE_URL}/courses/badges`, {
+      withCredentials: true,
+    });
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching user badges:", error);
     throw error;
   }
-}; 
+};
+
+
 
 /********************************************Badges API End*******************************************************/
 

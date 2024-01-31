@@ -24,6 +24,7 @@ function Courses() {
                 comment="comment"
                 courseName={card.courseName}
                 image={card.courseImage.fields.file.url}
+                courseDepartment={card.courseDepartment}
               />
             </Col>
           ))}

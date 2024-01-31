@@ -4,7 +4,7 @@ import "../Feed.css";
 import * as api from "./API";
 
 function CoursesFeed(props) {
-  const { courseName, description, comment, image, courseId } = props;
+  const { courseName, description, comment, image, courseId, courseDepartment } = props;
   const [userData, setUserData] = useState(null);
   const [userSet, setUserSet] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -36,11 +36,7 @@ function CoursesFeed(props) {
         return true;
       } else {
         // Enroll in the course
-        const response = await axios.post(
-          "http://localhost:3030/courses/enroll",
-          { courseName: courseName, courseId: courseId },
-          { withCredentials: true }
-        );
+        const response = api.enrollCourse(courseName, courseId, courseDepartment);
         console.log(response.data); // Log the response if needed
 
         // Update the user data after enrolling

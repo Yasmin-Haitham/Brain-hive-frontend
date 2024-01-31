@@ -7,6 +7,7 @@ import "../index.css";
 import Row from "react-bootstrap/Row";
 import * as formik from "formik";
 import * as yup from "yup";
+import * as api from "./API.js"
 
 function SignUpForm() {
   const { Formik } = formik;
@@ -23,35 +24,7 @@ function SignUpForm() {
     };
 
     // Make a POST request to your server for login
-    axios
-      .post("http://localhost:3030/user/login", userData, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        // Handle the response from the server (e.g., redirect or display a message)
-        console.log("Login successful", response.data);
-
-        sessionStorage.setItem("userId", response.data.uid);
-
-        // Check if the login was successful
-        if (response.data.success) {
-          // Redirect to the home page or perform any other action
-          if (response.data.LearningStyle == null) {
-            window.location.href = "/quiz";
-          } else {
-            window.location.href = "/Home";
-          }
-        } else {
-          // Display an alert if the login was not successful
-          alert("Email or password is wrong.");
-        }
-      })
-      .catch((error) => {
-        // Handle errors (e.g., display an error message)
-        console.log("Login failed", error);
-        // Display an alert for other errors
-        alert("An error occurred while logging in.");
-      });
+    api.login(userData);
   };
   // backend section *********************************************************************
   return (
