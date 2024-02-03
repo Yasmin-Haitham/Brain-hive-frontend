@@ -7,14 +7,38 @@ import * as api from "./API.js";
 const Leaderboard = () => {
   const [showMore, setShowMore] = useState(false);
   const [friends, setFriends] = useState([]);
+  const [userData, setUserData] = useState({});
+  const [userSet, setUserSet] = useState(false);
+  const [friendsSet, setFriendsSet] = useState(false);
+  const [leaderboard, setLeaderboard] = useState([])
+  const [loading, setLoading] = useState(true);
+
+  //function to fetch user data
+  const fetchUserData = async () => {
+    try {
+      await api.getUser(setUserData, setUserSet, setLoading)
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    // Fetch friends and update the state
-    api.getFriends(setFriends);
-  }, []);
+    const fetchData = async () => {
+      await fetchUserData();
+      // Fetch friends and update the state
+      await api.getFriends(setFriends);
+      setLeaderboard([...friends,userData])
+      console.log("lead", leaderboard)
+      setFriendsSet(true);
+    };
+
+    fetchData();
+    
+  }, [userSet,friendsSet]);
 
   // Sort friends based on their scores in descending order
-  const sortedFriends = friends.sort((a, b) => b.totalScore - a.totalScore);
+  const sortedFriends = leaderboard.sort((a, b) => b.totalScore - a.totalScore);
 
   const getText = () => {
     if (sortedFriends.length <= 5) {
